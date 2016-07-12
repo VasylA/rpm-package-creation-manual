@@ -3,7 +3,7 @@ Version: 5.08
 Release: 1
 Summary: GreenPAK1-5 Designer
 Group: Applications/Engineering
-License: OtherLicense
+License: EULA
 Source0: %{name}-%{version}-%{release}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 Packager: Silego Technology <info@silego.com>
