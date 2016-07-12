@@ -1,0 +1,89 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The GreenPAK2 is equipped with a 8-bit Successive Approximation Analog to Digital Converter (SAR ADC).</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p><strong>SHARED PD</strong> is active <strong>LOW</strong>, to power up block please apply logic <strong>LOW</strong> signal.</p>
+
+	<h4>Activation:</h4><hr>
+
+	<p>To make the ADC operational; connect its SHARED PD node to logic LOW source (for the default ADC configuration). SHARED PD is the power down node that shares its functionality with PWMs and internal RC oscillator. It can be configured in the ADC/PWM/RCO power down section of the ADC properties window in the GreenPAK2 Designer. It has 4 possible options:</p>
+
+<p>
+	<p class = "li1">• <strong>ADC pd from matrix out, PWM pd from register</strong>;</p>
+	<p class = "li1">• <strong>PWM pd from matrix out, ADC pd from register</strong>;</p>
+	<p class = "li1">• <strong>ADC &amp; PWM pd from matrix out</strong>;</p>
+	<p class = "li1">• <strong>OSC pd from matrix out, ADC &amp; PWM pd from register</strong>;</p><br />
+</p>
+
+	<p>Using the <strong>ADC pd from matrix out, PWM pd from register</strong> option will make ADC possible to power up/down through the register (PWM from register only, OSC is on) and control its operation through external signals.</p>
+
+	<p>Using the <strong>PWM pd from matrix out, ADC pd from register</strong> option will allow the ADC to be constantly powered up/down, depending on the Power configuration of the properties window in the GreenPAK2 Designer (PWM can be controlled from matrix, OSC is on).</p>
+
+	<p>Using the <strong>ADC &amp; PWM pd from matrix out</strong> option will allow the ADC and PWMs to be controlled from connection matrix (OSC is on).</p>
+
+	<p><strong>OSC pd from matrix out, ADC &amp; PWM pd from register</strong> option makes it possible to control the OSC operation through the connection matrix (ADC and PWMs are controlled through the registers).</p>
+
+	<p>The operation speed depends on the configured frequency of the internal RC oscillator. The ADC sampling speed can be calculated as: F_RC_OSC/1024.</p>
+
+	<p>GreenPAK2 ADC has three possible operation modes:</p>
+
+<p>
+	<p class = "li1">• <strong>Single ended</strong></p>
+	<p class = "li1">• <strong>Pseudo-differential mode</strong></p>
+	<p class = "li1">• <strong>Differential mode</strong></p><br />
+</p>
+
+	<p>In the <strong>Single Ended</strong> mode for the ADC; the IN+ and internal reference voltage (as IN-) are used. There are two possible configurations for the internal reference from the bandgap that are configured in the Gain Input Range section of the Properties window of the GreenPAK2 Designer.<br />
+The two possible configurations are 0 to 1V and 0 to 0.78V. These values will define the ADC resolution. For example for the 0 to 1V option the resolution will be 1V / 256bit = 3.9 mV-per-bit, while for 0 to 0.78V option it will be 3mV-per-bit.</p>
+
+	<p>Also there are three different options for the possible reference sources. These options are configured in the Vref section of the Properties window of the GreenPAK2 Designer. They are as follows:</p>
+
+<p>
+	<p class = "li1">• <strong>External Vref (from PIN11)</strong></p>
+	<p class = "li1">• <strong>Power divider (VDD × 0.25)</strong></p>
+	<p class = "li1">• <strong>Bandgap</strong></p><br />
+</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>Always use the Analog In/Out configuration for the external analog input PINs. Never exceed the VDD voltage on those analog input PINs.</p>
+
+	<p>In the <strong>External Vref (from PIN11)</strong> case; the reference is sourced from the external voltage source. Configure PIN11 as Analog In/Out to make this option operational.</p>
+
+	<p>In the <strong>Power Divider (VDD × 0.25)</strong> case; the IN- is sourced from the chip supply voltage. The value of IN- will change if the reference voltage also changes.</p>
+
+	<p>In the Single Ended mode the ADC uses an external input (PIN8). In the Differential and Pseudo-differential modes the ADC uses two inputs: IN+ and IN- (PIN8 and PIN9).</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>The total voltage difference should not exceed the reference voltage and the upper voltage (IN+) should never exceed the VDD voltage.</p>
+
+	<p>GreenPAK2 ADC also has 2 channels for the IN+ input (used in Single Ended ADC mode). They can be switched by using the CH SELECTOR. This can be done by configuring the ADC Connections Channel Selection section of the properties window in the GreenPAK2 Designer as <strong>PIN 2 (OUT)</strong>. This will automatically connect the node to the PIN2. Logic LOW and HIGH signals are used to switch between the IN+ CH#1 and IN+ CH#2 (PIN8 and PIN9). If PIN2 is HIGH the IN+ input will be from PIN8 and if PIN2 is LOW the IN+ input will be from PIN9.</p>
+
+	<p>GreenPAK2 ADC can use external clocking source from PIN5. Configure Clock section of the Properties window in the GreenPAK2 designer as <strong>External PIN 5 (OUT)</strong> to enable this option. In this case the ADC sampling frequency will be calculated as F_CLK/1024.</p>
+
+	<p>The ADC has serial and parallel outputs. Parallel outputs can be the source for other logic cells as P2S, PWMs, FSMs, ACMP1 DAC. The ADC serial data could be sent to the matrix; therefore it is possible to connect the output PIN to send the data to external consumer (see GreenPAK2 datasheet for ADC protocol details).</p>
+
+	<p>The ADC also has an <strong>INT. OUT</strong> signal. <strong>INT. OUT</strong> node outputs one clock width pulse when the ADC sampling is finished and ADC is ready to start sampling again. Such signal is convenient to use in synchronization of the device.</p>
+
+	<p>Internal to the ADC; there is a Programmable Gain Amplifier (PGA) on its positive input. This logic cell is a separate part of ADC and can be used by the ACMP0. The PGA gain option can be configured in the Gain section of the Properties window in the GreenPAK2 Designer. It has 7 possible options: <strong>x0.5, x1, x2, x4, x8, x16</strong> and <strong>Single-End bypass</strong>. The first 6 options will configure the gain parameter itself, the last option is used to bypass the PGA.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>ADC PGA has its output node (PGA), but it can be connected to ACMP0 only, when it is configured properly.</p>
+
+	<h4>ADC serial data output</h4><hr>
+
+	<p>GreenPAK2 ADC can output the data converted from the input analog voltage. The serial data is an 8-bit serial code. The data is output to PIN6. Timing diagram of ADC serial data output operation can be found in the section 9.10 of the datasheet.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>Due to ADC operation features the first ADC sampled data can be incorrect and should be filtered using the delay and the LUT.</p>
+
+	<p>Delay should have at least number 1024 of the counter data when the internal RC oscillator is used, or number 16 when an external clock is used. But if the clock frequency is HIGH, it is recommended to have at least 1 ms delay time to filter the incorrect sampled data.</p>
+</body>

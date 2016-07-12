@@ -1,0 +1,42 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>Silego GreenPAK2 has internal RC oscillator with configurable output frequency. Output frequency and other configurations can be configured in Properties window of the GreenPAK2 Designer.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p><strong>SHARED PD</strong> is active <strong>LOW</strong>, to power up block please apply logic <strong>LOW</strong> signal.</p>
+
+	<p>RC oscillator has following configurable options:</p>
+
+<p>
+	<p class = "li1">• <strong>Force on</strong>;</p>
+	<p class = "li1">• <strong>Frequency</strong>;</p>
+	<p class = "li1">• <strong>Hysteresis- Ext. clock</strong>;</p>
+	<p class = "li1">• <strong>ADC/PWM/RCO power down</strong>;</p><br />
+</p>
+
+	<p><strong>Force on</strong> configuration has two possible options. The first one (default setting) is <strong>Auto power on</strong>. Using this option will turn on RC oscillator only when one of the logic cells that needs clocking is used. For example, when the delay logic cell configured as rising edge delay is used it will start RC oscillator when the rising edge appears on the delay logic cell input and stops the oscillator when the configured delay time ends. The second option is <strong>Force on</strong> forces the oscillator to operate all the time the chip is powered on.</p>
+
+	<p><strong>Frequency</strong> configuration consists of 16 possible frequency options (from 26.51 kHz to 8932.4 kHz). This option could not be changed once the GreenPAK2 has been programmed.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>The higher frequency is used the higher current consumption will be.</p>
+
+	<p><strong>Hysteresis</strong> option is disabled in the default settings. Enabling this option will add additional hysteresis for internal RC oscillator, which will make the oscillations more protected from possible VDD variations and noises on VDD line. But adding hysteresis will limit the operating frequency of the RC oscillator.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>Hysteresis function is designed to operate only at 5V VDD.</p>
+
+	<p><strong>Ext. clock</strong> configuration has two possible options: <strong>Internal OSC clock and External clock</strong>. The first option enables internal RC oscillator to be clocking source. Choosing the second option will automatically connect PIN5 to EXT CLK node and make the signals from this pin clocking source for all internal logic cells. <strong>ADC/PWM/RCO power down</strong> configuration is the same as in the ADC and DCMP/PWM logic cells also share configuration options with them.</p>
+
+	<p>The RC oscillator has 4 output nodes which correspond for oscillator output, output with frequency divided by 4, 8 or 12.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>Oscillator frequency divided by 8 option is used only by COUNTER/DELAY logic cells and cannot be connected to the connection matrix. All other nodes could be used as internal signals and can be connected to the connection matrix.</p>
+</body>

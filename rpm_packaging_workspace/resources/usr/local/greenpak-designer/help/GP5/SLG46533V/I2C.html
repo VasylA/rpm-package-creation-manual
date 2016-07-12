@@ -1,0 +1,39 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>I2C Serial Communication Block (I2C)</strong> slave macrocell is accessed through SDA and SCL buses on PIN 8 and PIN 9. These pins are pure Open Drain NMOS and can be pulled above VDD. The Control Code is a 4-bit address ranging from 0 to 15. The I2C macrocell has 8 register outputs (I2C Virtual Inputs) and 8 dedicated 8-bit memory arrays (RAM Array Table). </p>
+
+	<p><em>For more information on I2C Serial Communication Block, see Datasheet Section 19.0 I2C Serial Communication Block or App Note AN-1090</em></p>
+
+	<h4>Activation</h4><hr>
+
+	<p>To active I2C, set &#8216;Power control&#8217; to Enable. To deactivate I2C, set &#8216;Power control&#8217; to Disable.</p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>Power control:</h3>
+
+	<p style="margin-left:2em;">Enable or Disable the I2C Macro-cell. <br />
+<p>
+	<p class = "li1">• <strong>Enable</strong>: PIN 8 and PIN 9 are connected to the SDA and SCL inputs of the I2C macrocell.</p>
+	<p class = "li1">• <strong>Disable</strong>: PIN 8 and PIN 9 are disconnected and can be used as GPIOs</p><br />
+</p></p>
+
+	<h3>IO Latching:</h3>
+
+	<p style="margin-left:2em;">&#8216;Power Control&#8217; becomes I2C-write invalid. </p>
+
+	<h3>Control code, bin:</h3>
+
+	<p style="margin-left:2em;">In the control byte, bits [6:3] are used to address the PAK device. By changing those four bits, the possible binary values are 0000b..1111b. This way the I2C Master can control up to 16 I2C slaves individually.</p>
+
+	<h3>I2C Virtual Inputs Initial Value:</h3>
+
+	<p style="margin-left:2em;">The I2C Virtual Inputs can be configured with an initial value upon power up.</p>
+
+	<h3>RAM Array Table:</h3>
+
+	<p style="margin-left:2em;">Each Byte from the RAM Array (Bytes at location 0xD8 through 0xDF) can be configured with an initial decimal byte value upon power up.</p>
+</body>

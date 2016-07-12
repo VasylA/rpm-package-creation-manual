@@ -1,0 +1,161 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>A <strong>Digital Comparator (DCMP)</strong> compares two binary values, the positive terminal input IN+ and the negative terminal input IN-. When the comparison is complete, it will output a 1 on EQ if the inputs are equal or 1 on OUT+ if IN+ is greater than IN-. The second function is <strong>Pulse Width Modulator (PWM)</strong>. In this mode, the positive terminal is compared with the negative terminal input and the result outputs on OUT+ and OUT-. Both OUT+ and OUT- are the same logic with a deadband in between. This is to drive external PMOS and NMOS gates such that an external circuit is source  directly from the supply.</p>
+
+	<h4>Activation</h4><hr>
+
+	<ol>
+		<li>Erase wire SHARED PD from VDD.</li>
+		<li>Set Properties -&gt; DCMP/PWM power register to ‘Power on’.</li>
+	</ol>
+
+	<h3>Input</h3>
+
+	<ol>
+		<li>IN+ and IN-  are the positive and negative terminal inputs. They are connected automatically when a block is activated.</li>
+		<li>MTRX SEL #0, 1 are the selection nodes for DCMP/PWM internal registers. These nodes use binary code for choosing the registers</li>
+		<li>CLK: At the rising edge, All 8 bits of IN+ and IN- are compared simultaneously and outputs updated.</li>
+	</ol>
+
+	<p><em><strong>Table 1. Matrix Select Bits to Register</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>MTRX SEL#1 </th>
+			<th>MTRX SEL#0 </th>
+			<th>Chosen Register # DCMP0 </th>
+			<th>Chosen Register # DCMP1 </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">0                       </td>
+			<td style="text-align:center;">3                       </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">1                       </td>
+			<td style="text-align:center;">2                       </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">2                       </td>
+			<td style="text-align:center;">1                       </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">3                       </td>
+			<td style="text-align:center;">0                       </td>
+		</tr>
+	</table></p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>DCMP/PWM power down:</h3>
+
+	<p style="margin-left:2em;">Activate or De-activate the DCMP/PWM and prevent idle current consumption.</p>
+
+	<h3>Function selection:</h3>
+
+	<p style="margin-left:2em;">Select between PWM and DCMP modes.</p>
+
+<p>
+	<p class = "li1">• <strong>In DCMP mode</strong>: Outputs are EQ and OUT+;</p>
+	<p class = "li1">• <strong>In PWM mode</strong>: Outputs are OUT+ and OUT-;</p><br />
+</p>
+
+	<h3>PD sync to clock:</h3>
+
+	<p style="margin-left:2em;">Dynamically power down the DCMP when the input CLK is halted.</p>
+
+	<h3>Clock source:</h3>
+
+	<p style="margin-left:2em;">Use the same CLK as the ADC or an external EXT. CLK0 source <br />
+<em>For more information, see OSC Detailed Info</em> </p>
+
+	<h3>Clock invert:</h3>
+
+	<p style="margin-left:2em;">Invert input CLK so the DCMP/PWM is falling edge triggered.</p>
+
+	<h3>Duty cycle:</h3>
+
+	<p style="margin-left:2em;">The duty cycle (DC) cannot range from 0 to 100%, instead there is a shift below or above. Choose the setting that best fits the application.</p>
+
+<p>
+	<p class = "li1">• <strong>0-99.6%</strong>: DC ranges from 0% to 99.6% and is determined as IN/256;</p>
+	<p class = "li1">• <strong>0.39-100%</strong>: DC ranges from 0.39% to 100% and is determined as (IN+1)/256.;</p><br />
+</p>
+
+	<h3>PWM deadband:</h3>
+
+	<p style="margin-left:2em;">Deadband is the time lag between OUT+ and OUT-&#8216;s rising and falling edges. Options are 10ns, 20ns, 40ns and 80ns.</p>
+
+	<h3>Register 0-3:</h3>
+
+	<p style="margin-left:2em;">These Registers can be used as IN- or IN+ sources. There are four registers, each 8-bits and are common through all three DCMP/PWMs . To use them as sources, configure IN+ or IN- selector to ‘Register X’ or ‘Register selected through the matrix’. For &#8216;Register selected through matrix&#8217;, inputs MTRX_SEL #0 and #1 are the select bits. <em>See Table 1 above</em></p>
+
+	<h3>IN+ selector:</h3>
+
+	<p style="margin-left:2em;">Positive Terminal Input of the DCMP/PWM. Each DCMP has different options. <em>See Table 2 below</em></p>
+
+	<h3>IN- selector:</h3>
+
+	<p style="margin-left:2em;">Negative Terminal Input of the DCMP/PWM. Each DCMP has different options. <em>See Table 2 below</em></p>
+
+	<p><em><strong>Table 2. DCMP IN+ and IN- selector</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>Selector </th>
+			<th>DCMP/PWM0                            </th>
+			<th>DCMP/PWM1                            </th>
+			<th>DCMP/PWM2  </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;" rowspan="4">IN+    </td>
+			<td style="text-align:center;">ADC [7:0]                            </td>
+			<td style="text-align:center;">ADC [7:0]                            </td>
+			<td style="text-align:center;">ADC [7:0]  </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">SPI [15:8]                           </td>
+			<td style="text-align:center;">SPI [7:0]                            </td>
+			<td style="text-align:center;">SPI [15:8] </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">FSM0 [7:0]                           </td>
+			<td style="text-align:center;">FSM1 [7:0]                           </td>
+			<td style="text-align:center;">FSM1 [7:0] </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">Register selected through the matrix </td>
+			<td style="text-align:center;">Register 1                           </td>
+			<td style="text-align:center;">Register 3 </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;" rowspan="4">IN-    </td>
+			<td style="text-align:center;">SPI [7:0]                            </td>
+			<td style="text-align:center;">SPI [15:8]                           </td>
+			<td style="text-align:center;">SPI [7:0]  </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT8 [7:0]                           </td>
+			<td style="text-align:center;">CNT9 [7:0]                           </td>
+			<td style="text-align:center;">FSM0 [7:0] </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">FSM1 [7:0]                           </td>
+			<td style="text-align:center;">FSM0 [7:0]                           </td>
+			<td style="text-align:center;">CNT8 [7:0] </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">Register 0                           </td>
+			<td style="text-align:center;">Register selected through the matrix </td>
+			<td style="text-align:center;">Register 2 </td>
+		</tr>
+	</table></p>
+</body>

@@ -1,0 +1,37 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>GreenPAK2 S2P block is used to convert 16-bit serial input data into 16-bit parallel data or 8-bit parallel data into 8-bit serial output data.</p>
+
+	<p>S2P has the following configurable options:</p>
+
+<p>
+	<p class = "li1">• <strong>Mode</strong>;</p>
+	<p class = "li1">• <strong>External clock</strong>;</p>
+	<p class = "li1">• <strong>Serial data out</strong>;</p><br />
+</p>
+
+	<p><strong>Mode</strong> option configures the S2P block conversion type: <strong>S2P</strong> (serial-to-parallel) or <strong>P2S</strong> (parallel-to-serial). External clock option enables external clock input to PIN5. This option is used to receive the serial data and convert it into the internal 16-bit parallel data. It is used only in S2P applications.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>PIN5 should be configured as Digital input.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>nCSB signal is active LOW.</p>
+
+	<p>Serial data out option can be configured as: <strong>Disabled</strong>, which disables the serial output function; <strong>ADC</strong> enables function of ADC data output as serial (PIN6 is automatically connected to ADC serial data output node &#8211; SER DATA); <strong>S2P</strong> will use the PIN6 output or input to the S2P block MOSI (Master output &#8211; Serial input) or MISO (Master input &#8211; Serial output) nodes depending on the current block&#8217;s operation, in this case PIN6 is used as serial data input or output pin.</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>PIN6 should be configured as Digital input if the S2P block operates as serial-to-parallel converter and Push Pull or Open Drain if the S2P block operates as parallel-to-serial converter.</p>
+
+	<p>In serial-to-parallel mode the block will <ins>receive</ins> 16-bit serial data on the rising edges of the external clocks and only when the nCSB signal is low. Connect nCSB node to any free pin configured as digital input to control S2P block operation by external signals (master controlled S2P). For better understanding of this process refer to S2P timing diagram that can be found in the GreenPAK2 datasheet in section 17 (Slave SPI &#8211; Serial to parallel / Parallel to serial Converter (S2P)).</p>
+
+	<p>The data converted by the S2P block into the parallel data is divided into 2 parts: S2PL and S2PH. S2PL is for the 8 least significant bits ([7:0]), S2PH is for 8 most significant bits ([15:8]). This parts are used by the different Green PAK2 internal blocks (FSMs, DCMPs etc.).</p>
+
+	<p>In parallel-to-serial mode the S2P block uses internal 8-bit parallel data from Counter1. As the Counter1 is a 14-bit counter the data used for parallel-to-serial conversion takes its 8 LSB bits, upper 6 counter bits are ignored. The data from the Counter1 is sent on the capture signal (rising or falling edge on the CAPTURE node). The serial data will output only when the nCSB signal is logic LOW. To output the data an external clocking signal from PIN5 is used. For better understanding of this process refer to S2P timing diagram that can be found in the GreenPAK2 datasheet in section 17 (Slave SPI &#8211; Serial to parallel / Parallel to serial converter (S2P)).</p>
+</body>

@@ -1,0 +1,122 @@
+
+PACKAGE_NAME="greenpak-designer"
+
+PREFIX="usr/local/$PACKAGE_NAME"
+
+ARCH_DEPENDENT_FILES_PREFIX=$PREFIX
+
+PROGRAM_INSTALLATION_ROOT="/$ARCH_DEPENDENT_FILES_PREFIX"
+
+#
+# Working folders
+#
+RESOURCES_DIR="resources"
+PROJECTS_FOLDER="projects"
+PACKAGING_FOLDER="packages"
+
+CONTROL_FILES_DIR="control_files"
+
+# Required control files
+REQUIRED_CONTROL_FILES=(
+	"copyright"
+#	"changelog"
+)
+
+RPM_SPEC_FILE="$PACKAGE_NAME.spec"
+
+
+RESOURCES_FOLDERS=(
+	"lib"
+	"usr"
+)
+
+
+#
+# Projects
+#
+SLG_LIB="libs"
+UPDATER="updater"
+LAUNCHER="launcher"
+GP1="gp1"
+GP2="gp2"
+GP3="gp3"
+GP4="gp4"
+GP5="gp5"
+
+PROJECTS=(
+	${SLG_LIB}
+	${UPDATER}
+	${LAUNCHER}
+	${GP1}
+	${GP2}
+	${GP3}
+	${GP4}
+	${GP5}
+)
+
+#
+# Variables for get and build sources
+#
+SVN_HOST=172.21.1.21
+declare -A REPOS=(
+	[$SLG_LIB]="http://${SVN_HOST}/svn/slg-libs/trunk/"
+	[$UPDATER]="http://${SVN_HOST}/svn/greenpak-updater/trunk"
+	[$LAUNCHER]="http://${SVN_HOST}/svn/greenpak-launcher/trunk"
+	[$GP1]="http://${SVN_HOST}/svn/greenpak1-designer/trunk"
+	[$GP2]="http://${SVN_HOST}/svn/greenpak2-designer/trunk"
+	[$GP3]="http://${SVN_HOST}/svn/greenpak3-designer/trunk"
+	[$GP4]="http://${SVN_HOST}/svn/greenpak4-designer/trunk"
+	[$GP5]="http://${SVN_HOST}/svn/greenpak5-designer/trunk"
+)
+
+
+declare -A PROJECT_DIR=(
+	[$SLG_LIB]="Libs/trunk"
+	[$UPDATER]="greenpak-updater/trunk"
+	[$LAUNCHER]="greenpak-launcher/trunk"
+	[$GP1]="greenpak1-designer/trunk"
+	[$GP2]="greenpak2-designer/trunk"
+	[$GP3]="greenpak3-designer/trunk"
+	[$GP4]="greenpak4-designer/trunk"
+	[$GP5]="greenpak5-designer/trunk"
+)
+
+declare -A PROJECT_SRC_DIR=(
+	[$SLG_LIB]="Libs/trunk/SilegoUSB-2.0"
+	[$UPDATER]="greenpak-updater/trunk"
+	[$LAUNCHER]="greenpak-launcher/trunk"
+	[$GP1]="greenpak1-designer/trunk"
+	[$GP2]="greenpak2-designer/trunk"
+	[$GP3]="greenpak3-designer/trunk"
+	[$GP4]="greenpak4-designer/trunk"
+	[$GP5]="greenpak5-designer/trunk"
+)
+
+declare -A PRO_FILES=(
+	[$SLG_LIB]="USB.pro"
+	[$UPDATER]="Updater.pro"
+	[$LAUNCHER]="GPAKLauncherLib.pro"
+	[$GP1]="GreenPAK1Designer.pro"
+	[$GP2]="GreenPAK2Designer.pro"
+	[$GP3]="GreenPAK3Designer.pro"
+	[$GP4]="GreenPAK4Designer.pro"
+	[$GP5]="GreenPAK5Designer.pro"
+)
+
+
+QT_FOLDER=$PROGRAM_INSTALLATION_ROOT
+QT_VERSION="5.7.0"
+QMAKE_BIN="${QT_FOLDER}/bin/qmake"
+QMAKE_ARG="\"CONFIG+=release\" \"CONFIG+=warn_off\" \"CONFIG+=silent\""
+
+
+OUTPUT_BINS_FOLDER="$PROJECTS_FOLDER/${PROJECT_DIR[$SLG_LIB]}/bin/release/$QT_VERSION"
+
+BIN_FILES_MASK="GP*"
+LIB_FILES_MASK="*.so.*"
+
+BIN_FILES_RESOURCES_DIR="$ARCH_DEPENDENT_FILES_PREFIX/bin"
+LIB_FILES_RESOURCES_DIR="$ARCH_DEPENDENT_FILES_PREFIX/lib"
+
+
+

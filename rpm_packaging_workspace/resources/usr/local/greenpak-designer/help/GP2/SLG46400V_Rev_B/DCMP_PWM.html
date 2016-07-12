@@ -1,0 +1,122 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The 3 digital comparators / pulse width modulators of the GreenPAK2 chip use 8-bit data for their operation. This datacan be taken from the ADC, S2P, FSM0, and COUNTER1 or from logic cells&#8217; internal registers.</p>
+
+	<p>Every DCMP/PWM has the following configurable options:</p>
+
+<p>
+	<p class = "li1">• <strong>Power</strong>;</p>
+	<p class = "li1">• <strong>Clock invert</strong>;</p>
+	<p class = "li1">• <strong>Output range</strong>;</p>
+	<p class = "li1">• <strong>PWM deadband</strong>;</p>
+	<p class = "li1">• <strong>Register 0-3</strong>;</p>
+	<p class = "li1">• <strong>IN+ selector</strong>;</p>
+	<p class = "li1">• <strong>IN- selector</strong>;</p>
+	<p class = "li1">• <strong>ADC/PWM/RCO power down</strong>;</p><br />
+</p>
+
+	<h3>DCMP Mode</h3>
+
+	<p><em><strong>Table 1.</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>              </th>
+			<th>EQ </th>
+			<th>OUT- </th>
+			<th>OUT+ </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">IN+ = IN-     </td>
+			<td style="text-align:center;">1  </td>
+			<td style="text-align:center;">0    </td>
+			<td style="text-align:center;">0    </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">IN+ &lt; IN-     </td>
+			<td style="text-align:center;">0  </td>
+			<td style="text-align:center;">0    </td>
+			<td style="text-align:center;">0    </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">IN+ &gt; IN-     </td>
+			<td style="text-align:center;">0  </td>
+			<td style="text-align:center;">1    </td>
+			<td style="text-align:center;">1    </td>
+		</tr>
+	</table></p>
+
+	<h3>PWM mode</h3>
+
+	<p>For correct PWM operation CNT1/DLY1 Counter Data should be set as &#8216;255&#8217;.</p>
+
+	<p>OUT+ intended to drive a PMOS gate for pullup, while OUT- is for an NMOS gate for pulldown.</p>
+
+	<p>All three DCMPs/PWMs have Power option which should be turned on to enable the logic cell.</p>
+
+	<p><strong>Clock invert</strong> option is used to invert internal clocking signal that is used when the DCMP/PWM uses values from its internal registers.</p>
+
+	<p><strong>Output range</strong> configuration has two options: 0-99.6% and 0.39-100%. If the first option is chosen, PWM output duty cycle ranges from 0% to 99.6% and is determined as IN1/256. If the second option is chosen, PWM output duty cycle ranges from 0.39% to 100% and is determined as (IN1+1)/256.</p>
+
+	<p><strong>PWM deadband</strong> is the dead time after the positive output (OUTP) falling edge or the time before the rising edge on the negative output (OUTN).</p>
+
+	<p><strong>Register 0-3</strong> are the configuration fields of the internal 8-bit register (0 is the smallest and 255 is the biggest value that can be written into the register). These 4 registers are common for all DCMP/PWM logic cells.</p>
+
+	<p><strong>IN+ selector</strong> configuration is used to configure the positive input source of the DCMP/PWM logic cell. Every logic cell can be configured separately to have different sources. All DCMP/PWM logic cells have similar options of the IN+ source such as: <strong>ADC[7:0], S2P[15:8], FSM0[7:0]</strong> and additional option that concerns the internal registers. For DCMP0/PWM0 it is <strong>Register selected through matrix</strong>. For DCMP1/PWM1 it is <strong>Register 1</strong>. For DCMP2/PWM2 it is <strong>Register 0</strong>.</p>
+
+	<p><strong>IN- selector</strong> configuration is used to configure the negative input source of the DCMP/PWM logic cell. Every logic cell can be configured separately to have different sources. All DCMP/PWM logic cells have similar option of the INsource: COUNTER1 <strong>(CNT1 -&gt; Q)</strong>. DCMP0/FSM0 and DCMP1/FSM1 have similar option of <strong>Register selected through matrix</strong>. DCMP2/FSM2 has <strong>Register 0</strong> option instead.</p>
+
+	<p><strong>ADC/PWM/RCO power down</strong> configuration is the same as ADC one and shares configuration options with it. To configure logic cell as DCMP simply use the ADC or S2P as positive input source and register(s) as a negative input source. To configure logic cell as PWM use the sources that changes their data value in time (Example: COUNTER1 and FSM0). If the IN+ sources from ADC and IN- sources the COUNTER1 the logic cell will operate as PWM.</p>
+
+	<p>If the IN- source is changed to the Register 0, the logic cell will compare the data from ADC and the data written into the Register 0 and output logic HIGH when the data from ADC is bigger than the data from the register.</p>
+
+	<p>In the GreenPAK2 Designer every DCMP/PWM logic cell has the following input/output nodes:</p>
+
+<p>
+	<p class = "li1">• <strong>IN-</strong>;</p>
+	<p class = "li1">• <strong>IN+</strong>;</p>
+	<p class = "li1">• <strong>MTRX SEL #0</strong>;</p>
+	<p class = "li1">• <strong>MTRX SEL #1</strong>;</p>
+	<p class = "li1">• <strong>SHARED PD</strong>;</p>
+	<p class = "li1">• <strong>EQ</strong>;</p>
+	<p class = "li1">• <strong>OUT-</strong>;</p>
+	<p class = "li1">• <strong>OUT+</strong>;</p><br />
+</p>
+
+	<p>IN- and IN+ are the negative and positive inputs respectively. They are connected automatically when the proper configuration is chosen and applied. SHARED PD is the power down node shared with ADC and RC oscillator. MTRX SEL #0, 1 are the selection nodes for DCMP/PWM internal registers. These nodes use binary code for choosing the registers:</p>
+
+	<p><em><strong>Table 2.</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>MTRX SEL#1 </th>
+			<th>MTRX SEL#0 </th>
+			<th>Chosen register # </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">0                 </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">1                 </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">LOW        </td>
+			<td style="text-align:center;">2                 </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">HIGH       </td>
+			<td style="text-align:center;">3                 </td>
+		</tr>
+	</table></p>
+
+	<p>OUT- and OUT+ are the positive and negative non-overlapping outputs which differ on the PWM deadband value (see GreenPAK2 datasheet for better understanding of this).</p>
+
+	<p>EQ is an output which becomes HIGH when the two values on IN+ and IN- inputs are equal.</p>
+</body>

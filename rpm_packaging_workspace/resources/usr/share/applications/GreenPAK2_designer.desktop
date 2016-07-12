@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+NoDisplay=true
+Exec=/usr/bin/GP2 %f
+Name=GreenPAK2 designer
+Comment=GreenPAK2 Designer IDE.
+MimeType=application/gp2-extension;
+Icon=greenpak2
+Categories=Utility;Application;

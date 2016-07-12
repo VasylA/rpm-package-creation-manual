@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+
+	<mime-type type="application/gp1-extension">
+		<comment>GreenPAK1 project</comment>
+		<comment xml:lang="en_AU">GreenPAK1 project</comment>
+		<comment xml:lang="en_GB">GreenPAK1 project</comment>
+		<comment xml:lang="uk">проект GreenPAK1</comment>
+		<glob pattern="*.gp1"/>
+		<glob pattern="*.gpp"/>
+	</mime-type>
+
+	<mime-type type="application/gp2-extension">
+		<comment>GreenPAK2 project</comment>
+		<comment xml:lang="en_AU">GreenPAK2 project</comment>
+		<comment xml:lang="en_GB">GreenPAK2 project</comment>
+		<comment xml:lang="uk">проект GreenPAK2</comment>
+		<glob pattern="*.gp2"/>
+	</mime-type>
+
+	<mime-type type="application/gp3-extension">
+		<comment>GreenPAK3 project</comment>
+		<comment xml:lang="en_AU">GreenPAK3 project</comment>
+		<comment xml:lang="en_GB">GreenPAK3 project</comment>
+		<comment xml:lang="uk">проект GreenPAK3</comment>
+		<glob pattern="*.gp3"/>
+	</mime-type>
+
+	<mime-type type="application/gp4-extension">
+		<comment>GreenPAK4 project</comment>
+		<comment xml:lang="en_AU">GreenPAK4 project</comment>
+		<comment xml:lang="en_GB">GreenPAK4 project</comment>
+		<comment xml:lang="uk">проект GreenPAK4</comment>
+		<glob pattern="*.gp4"/>
+	</mime-type>
+
+	<mime-type type="application/gp5-extension">
+		<comment>GreenPAK5 project</comment>
+		<comment xml:lang="en_AU">GreenPAK5 project</comment>
+		<comment xml:lang="en_GB">GreenPAK5 project</comment>
+		<comment xml:lang="uk">проект GreenPAK5</comment>
+		<glob pattern="*.gp5"/>
+	</mime-type>
+
+</mime-info>

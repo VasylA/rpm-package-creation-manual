@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+NoDisplay=true
+Exec=/usr/bin/GP3 %f
+Name=GreenPAK3 designer
+Comment=GreenPAK3 Designer IDE.
+MimeType=application/gp3-extension;
+Icon=greenpak3
+Categories=Utility;Application;

@@ -1,0 +1,27 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The Power On Reset or POR is the logic cell of GreenPAK2 chip which is responsible for GreenPAK2&#8217;s correct initialization. More detailed information about POR structure and signals it produces can be found in the GreenPAK2 datasheet.</p>
+
+	<p>In the GreenPAK2 Designer, the POR is a separate logic cell that produces logic HIGH signal on its OUT node when the chip has started up. This feature can be used to avoid an undesirable transition while the GreenPAK2 is turned off or during its start up.</p>
+
+	<p>POR logic cell has 3 possible configurations:</p>
+
+<p>
+	<p class = "li1">• <strong>Auto power detect function on</strong>;</p>
+	<p class = "li1">• <strong>VDD bypass to ADC</strong>;</p>
+	<p class = "li1">• <strong>Regulator always on</strong>;</p><br />
+</p>
+
+	<p>These options are configurations of the internal power regulator that makes possible chip&#8217;s analog parts (ACMPs, ADC etc.) to operate in the wide range of 1.8V-5V. </p>
+
+	<p>Use the <strong>Auto power detect function</strong> on option if design needs the full VDD range. It will make the power regulator to detect the supply voltage and automatically turn on and off. When using this configuration; it will cause the GreenPAK2 to consume additional current, based on the value the VDD.</p>
+
+	<p>Use the <strong>VDD bypass ADC</strong> option when the VDD is in the range of 1.8V &#8211; 2.5V. This option will turn off the regulator as needed.</p>
+
+	<p>Use the <strong>Regulator always on</strong> option when the VDD is in the range of 3.3V &#8211; 5V. This option will force the regulator to always be on.</p>
+
+	<p>The POR logic cell always has an additional node &#8211; PWR DETECT. It produces a HIGH level signal when the power regulator is turned on and LOW signal when it is turned off.</p>
+</body>

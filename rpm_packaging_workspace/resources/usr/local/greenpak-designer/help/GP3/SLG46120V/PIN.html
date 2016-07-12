@@ -1,0 +1,66 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>Input/Output Pins (I/O PINS)</strong> are for receiving external signals and sending signals out. These general purpose I/Os (GPIOs), can be configured as Analog and Digital inputs and outputs with the exception of PIN2 which can only serve as a digital input or external reset. PINs 6 and 10 can be used as a 3-state Output or Input and Output in the same design. </p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>I/O selection:</h3>
+
+	<p style="margin-left:2em;">Different mode selections per pin can have different restrictions on input/output types. </p>
+
+<p>
+	<p class = "li1">• <strong>Pin not used</strong>: will default the PIN with a Pull down 1MOhm resistor;</p>
+	<p class = "li1">• <strong>Digital input</strong>;</p>
+	<p class = "li1">• <strong>Analog input/output</strong>;</p>
+	<p class = "li1">• <strong>Digital output</strong>;</p>
+	<p class = "li1">• <strong>Digital input/output</strong>;</p><br />
+</p>
+
+	<h3>Input mode OE=0:</h3>
+
+	<p style="margin-left:2em;">Only available for Input or Input/Output Pins.</p>
+
+<p>
+	<p class = "li1">• <strong>Digital in without Schmitt trigger</strong>;</p>
+	<p class = "li1">• <strong>Digital in with Schmiitt trigger</strong>: configures the PIN to have hysteresis which rejects fast and spurious signal transitions;</p>
+	<p class = "li1">• <strong>Low voltage digital input</strong>: the voltage threshold which determines HIGH from LOW is lower than in regular Digital input mode. Use Low voltage digital Input if a desired function is to sense low voltage logic levels (for example 1.8V input signals if the chip VDD is 3.3V or 5V);</p><br />
+</p>
+
+	<h3>Output mode OE=1:</h3>
+
+	<p style="margin-left:2em;">Only available for Output or Input/Output Pins. If the PIN is configured as an Output (Push pull with 1x or 2x option, Open drain NMOS 1x or 2x or Open drain PMOS), the software will automatically connect OE to VDD. In 3-state Output, the three states are Digital Input, Push Pull Digital Output and Hi-Z.</p>
+
+<p>
+	<p class = "li1">• <strong>1x push pull</strong>;</p>
+	<p class = "li1">• <strong>2x push pull</strong>;</p>
+	<p class = "li1">• <strong>1x open drain NMOS</strong>;</p>
+	<p class = "li1">• <strong>2x open drain NMOS</strong>;</p>
+	<p class = "li1">• <strong>1x open drain PMOS</strong>;</p>
+	<p class = "li1">• <strong>2x open drain PMOS</strong>;</p>
+	<p class = "li1">• <strong>1&#215; 3-state Output</strong>;</p>
+	<p class = "li1">• <strong>2&#215; 3-state Output</strong>;</p><br />
+</p>
+
+	<h3>Resistor:</h3>
+
+	<p style="margin-left:2em;">Available for both Input and Output. All ports are in Hi-Z state until chip is powered up. In case of PIN 2, the resistors are fixed to a pull-down configuration only. In case of all other I/O PINs, the internal resistors can be configured as either pull-ups or pull- downs.</p>
+
+<p>
+	<p class = "li1">• <strong>Pull down resistor</strong>: Default low;</p>
+	<p class = "li1">• <strong>Pull up resistor</strong>: Default high;</p>
+	<p class = "li1">• <strong>Floating</strong>: no resistor;</p><br />
+</p>
+
+	<h3>Resistor value:</h3>
+
+	<p style="margin-left:2em;">If a Pull up or Pull down resistor was chosen for the Resistor parameter, there are three selectable resistor values.</p>
+
+<p>
+	<p class = "li1">• <strong>10k strongest pull up/down</strong>;</p>
+	<p class = "li1">• <strong>100k medium pull up/down</strong>;</p>
+	<p class = "li1">• <strong>1M weakest pull up/down</strong>;</p><br />
+</p>
+</body>

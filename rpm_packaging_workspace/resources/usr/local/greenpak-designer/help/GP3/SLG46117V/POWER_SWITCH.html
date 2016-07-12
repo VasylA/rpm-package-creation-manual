@@ -1,0 +1,16 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The SLG46117 includes a P-FET Power Switch designed for load switching applications. The P-FET Power Switch contains a 28.5 mΩ RDSON, 1 A P-ch MOSFET with fixed slew rate control and integrated discharge resistor. The P-FET Power Switch can be controlled internally via the ON digital input of the P-FET Power Switch component in GreenPAK Designer, allowing the user to generate integrated mixed-signal control circuits, or externally via PWR_SW_ON (PIN 4).</p>
+
+	<p>When configured to be controlled internally, PWR_SW_ON (PIN 4) is configured as Push-Pull output.</p>
+
+	<p>When configured for external control, PWR_SW_ON (PIN 4) is configured as Low Voltage Digital Input (LVDI) and can be used as an input to other integrated components.</p>
+
+	<p>The P-FET Power Switch need not be used in the same voltage domain as VDD. However, when VIN is not tied to VDD, using a large pull-down resistor on PWR_SW_ON (PIN 4) is recommended to prevent current from flowing through the P-FET Power Switch while the device is not powered.</p>
+
+	<center><p style="text-align:center;"><img alt="" src="P-FET_Discharge.png" /><br />
+<em><strong>Figure 1.</strong> P-FET Power Switch with Fixed Slew Rate Control and Integrated Discharge Resistor</em></p></center>
+</body>

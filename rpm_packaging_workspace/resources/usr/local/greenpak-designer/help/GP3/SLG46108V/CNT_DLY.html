@@ -1,0 +1,112 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>Counter/Delay (CNT/DLY)</strong> is a multi-function macrocell.  A CNT/DLY may be used as a: counter, delay or finite-state-machine (FSM).  As a counter, the macrocell counts from the given &#8216;counter data&#8217; down to zero in sync with the rising edge of a clock. The output goes from low-to-high when the &#8216;counter data&#8217; is zero. As a delay, the input edge is delayed by a time equal to the &#8216;counter data&#8217; multiplied by the clock period. As a finite-state-machine, the direction in which the &#8216;counter data&#8217; changes can be controlled by special inputs UP/DOWN and KEEP. The &#8216;edge detect&#8217; output creates a high pulse when the input edge is detected. </p>
+
+	<p><em>For more detailed information, see datasheet section 11.0 Counters/Delay Generators (CNT/DLY)</em></p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>Mode:</h3>
+
+<p>
+	<p class = "li1">• <strong>Delay</strong>: postpones the rising and/or falling edge;</p>
+	<p class = "li1">• <strong>Counter/FSM</strong>: generates a positive signal when the &#8216;counter data&#8217; reaches zero;</p><br />
+</p>
+
+	<h3>Counter data:</h3>
+
+	<p style="margin-left:2em;">The length of Counter/Delay period. CNT/DLY bit widths are 8-bit, from 1 to 255. For delay timing applications, it is recommended to use larger counter data values for less error.</p>
+
+	<h3>Delay time / Output Period:</h3>
+
+	<p style="margin-left:2em;">Calculates time period with the following formulas: </p>
+
+<p>
+	<p class = "li1">• <strong>Output Period (After reset)</strong>: [(Counter data + 3) / CLK input frequency];</p>
+	<p class = "li1">• <strong>Output Period (All the next)</strong>: [(Counter data + 1) / CLK input frequency];</p>
+	<p class = "li1">• <strong>Delay time</strong>: [(Counter data + 2 + variable) / CLK input frequency] , where 0 &lt; variable &lt; 1;</p><br />
+</p>
+
+	<p style="margin-left:2em;">CLK Input Frequency is the frequency of the selected Clock Source and Offset is the asynchronous time offset between the input signal and the first clock pulse.</p>
+
+	<p style="margin-left:2em;">If an input pulse is &lt; delay time, the pulse would be filtered out. This feature can be useful for de-glitching.</p>
+
+	<h3>Edge select:</h3>
+
+	<p style="margin-left:2em;">In Delay or edge detect mode, select which edge to delay. In Counter Mode with Reset In, select which edge resets the counter to 0.</p>
+
+<p>
+	<p class = "li1">• <strong>Both</strong>: both rising and falling edges of pulse are delayed;</p>
+	<p class = "li1">• <strong>Falling</strong>: only falling edge delayed;</p>
+	<p class = "li1">• <strong>Rising</strong>: only rising edge delayed;</p>
+	<p class = "li1">• <strong>High Level Reset</strong>: When RESET IN is high, counter is reset to 0;</p><br />
+</p>
+
+	<h3>Counter value control:</h3>
+
+	<p style="margin-left:2em;">The RESET_IN input can reset &#8216;counter data&#8217; to zero or set &#8216;counter data&#8217; to the the register value.</p>
+
+	<h4>FSM inputs</h4><hr>
+
+	<p style="margin-left:2em;">In FSM mode, the user may control the counter value using macro-cell inputs “UP, DOWN, KEEP” . </p>
+
+	<p>UP: macro-cell input &#8216;UP’ is a count direction controller. A digital high sets the FSM to count up in value. A digital low sets the FSM to count down in value and both will wrap around at 0 or maximum.</p>
+
+	<p style="margin-left:2em;">KEEP: macro-cell input &#8216;KEEP’ is a latching mechanism. A digital high latches the current value in FSM until &#8216;KEEP’ is released low. A digital low resumes normal operation where a clock input will increment or decrement its counter value. </p>
+
+<p>
+	<p class = "li1">• <strong>Counter data source</strong>: The FSM data will start at this number. When reaching 0 or max8-bit the FSM will not reload this value but instead wraps around;</p><br />
+</p>
+
+	<h4>CONNECTIONS</h4><hr>
+
+	<h3>RESET IN</h3>
+
+	<p style="margin-left:2em;">Reset In resets the Counter to 0 when the RESET IN input has a valid edge. The edge is determined by the Edge select parameter. Valid in Counter Mode only.<br />
+The initial output after reset is High for the duration of one clock cycle.</p>
+
+	<h3>Clock</h3>
+
+	<p style="margin-left:2em;">ALL Counter/Delays have CLK/4/12/24/64, and an EXT CLK (from matrix). Each CNT/DLY can be sourced by another CNT/DLY (view table below).</p>
+
+	<p><em><strong>Table 1.</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>Macrocell   </th>
+			<th>Bit-Width </th>
+			<th>CNT/DLY         </th>
+			<th>EXT CLK </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY0    </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY3  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY1    </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY0  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY2    </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY1  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY3    </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY2  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+	</table></p>
+
+	<h3>Clock Source:</h3>
+
+	<p style="margin-left:2em;">Both counter and delay configurations can be sourced by an internal or external oscillator. Clock (RC OSC) without divider connections are not shown. (See OSC Info block for more information on the different CLK sources.)</p>
+</body>

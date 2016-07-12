@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/usr/bin/GPLauncher
+Name=GreenPAK designer
+Comment=GreenPAK Designer IDE.
+Icon=slg7
+Categories=Utility;Application;

@@ -1,0 +1,260 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>Oscillator (OSC)</strong> macrocell is the main hub for providing clock sources to the connection matrix and special components (CNT/DLY, DCMP, SPI and ADC). There are three types of internal clock sources: <strong>RC</strong>, <strong>Low frequency (LF)</strong> and <strong>Ring</strong>. RC oscillator is 25 kHz or 2 MHz, LF oscillator is 1.6 kHz and the Ring oscillator is 25 MHz. All three sources are independent and can be used simultaneously. Another option is to use external clocks which can be sourced from a GPIO or matrix signals.</p>
+
+	<p><em>See Datasheet Section 21.0 Oscillators for more information</em></p>
+
+	<h4>Description</h4><hr>
+
+	<p>The faster the frequency, the higher the current consumption and the slower frequencies will have lower current consumption.</p>
+
+	<p>All CNT/DLY, DCMP, SPI and ADC Clock Source connections are hardwired. Complete the connections by selecting the desired clock source from the CNT/DLY, DCMP, SPI and ADC macrocell. RC OSC w/o divider does not show a connection wire in GPAK Designer, however, other wires will be shown when the connection is made.</p>
+
+	<p>Use other clock signals by routing them through the oscillator block via the EXT CLK inputs. EXT CLK0,1,4 are located in matrix 0 while EXT. CLK2,3 are in matrix 1.</p>
+
+	<p>DLY/CNT blocks can be clocked by a limited number of EXT. CLK signals depending on the DLY/CNT block (see table). To route a matrix signal to the clock of a DLY/CNT, determine which EXT. CLKs it can accept and route the matrix output to that EXT. CLK input on the OSC.</p>
+
+	<p><em><strong>Table 1. EXT CLKs</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>Block           </th>
+			<th>Matrix </th>
+			<th>EXT. CLK0 </th>
+			<th>EXT. CLK1 </th>
+			<th>EXT. CLK2 </th>
+			<th>EXT. CLK3 </th>
+			<th>EXT. CLK4 </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT0/DLY0       </td>
+			<td style="text-align:center;">0      </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT1/DLY1       </td>
+			<td style="text-align:center;">1      </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT2/DLY2/FSM0  </td>
+			<td style="text-align:center;">0      </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT3/DLY3       </td>
+			<td style="text-align:center;">1      </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT4/DLY4/FSM1  </td>
+			<td style="text-align:center;">1      </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">+         </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT5/DLY5       </td>
+			<td style="text-align:center;">0      </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT6/DLY6       </td>
+			<td style="text-align:center;">0      </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT7/DLY7       </td>
+			<td style="text-align:center;">1      </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT8/DLY8       </td>
+			<td style="text-align:center;">1      </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT9/DLY9       </td>
+			<td style="text-align:center;">0      </td>
+			<td style="text-align:center;">+         </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">          </td>
+			<td style="text-align:center;">+         </td>
+		</tr>
+	</table></p>
+
+	<h4>Activation </h4><hr>
+
+	<p>If PWR DOWN input the oscillator is LOW, the oscillator will be turned on. If PWR DOWN input of the oscillator is HIGH, the oscillator will be turned off.</p>
+
+	<h3>Auto power on</h3>
+
+	<p>The internal oscillator can dynamically cycle power based on the needs of the delay blocks. The below figure shows how the OSC turns on whenever a signal on the DLY block arrives and runs until the delay is completed (marked by the rise in DLY_OUT). The clock then powers down until it needs to clock the delay for the falling edge and powers back up. Once the delay for the falling edge is completed, the clock powers down once again. It is important to note that CNT blocks do not cause the clock to power up, in which case the OSC Power mode should be set to Force power on.</p>
+
+	<center><p style="text-align:center;"><img alt="" src="rco000.png" /><br />
+<em><strong>Figure 1.</strong></em></p></center>
+
+	<h4>Parameters (LF OSC)</h4><hr>
+
+	<h3>LF OSC power mode:</h3>
+
+<p>
+	<p class = "li1">• <strong>Auto power on</strong>: will automatically power down and power up the OSC. See Auto power on above;</p>
+	<p class = "li1">• <strong>Force power on</strong>: will run the OSC continuously;</p><br />
+</p>
+
+	<h3>LF OSC frequency:</h3>
+
+	<p style="margin-left:2em;">This cannot be changed, but simply shows the LF OSC frequency.</p>
+
+	<h3>LF matrix power down:</h3>
+
+	<p style="margin-left:2em;">When the power down signal is HIGH, the OSC will turn off and minimize current consumption</p>
+
+<p>
+	<p class = "li1">• <strong>Enable</strong>: will allow the Power Down input of the OSC to power down the LF OSC;</p>
+	<p class = "li1">• <strong>Disable</strong>: will ignore the logic at the Power Down input of the OSC;</p><br />
+</p>
+
+	<h3>LF Clock predivider by:</h3>
+
+	<p style="margin-left:2em;">a divider internal to the OSC block.</p>
+
+	<h3>Clock selector:</h3>
+
+	<p style="margin-left:2em;">Clock output configurations are shown in the table below the properties.</p>
+
+<p>
+	<p class = "li1">• <strong>LF OSC</strong>;</p>
+	<p class = "li1">• <strong>EXT. CLK0</strong>;</p><br />
+</p>
+
+	<h4>Parameters (RC OSC)</h4><hr>
+
+	<h3>RC OSC power mode:</h3>
+
+<p>
+	<p class = "li1">• <strong>Auto power on</strong>: will automatically Power down and Power up the OSC. See Auto power on above;</p>
+	<p class = "li1">• <strong>Force power on</strong>: will run the OSC continuously;</p><br />
+</p>
+
+	<h3>RC OSC frequency:</h3>
+
+	<p style="margin-left:2em;">The RC OSC can be set to the following two frequencies.</p>
+
+<p>
+	<p class = "li1">• <strong>25kHz</strong>;</p>
+	<p class = "li1">• <strong>2000kHz</strong>;</p><br />
+</p>
+
+	<h3>RC Matrix power down:</h3>
+
+	<p style="margin-left:2em;">When the Power down signal is HIGH, the OSC will turn off and minimize current consumption</p>
+
+<p>
+	<p class = "li1">• <strong>Enable</strong>: will allow the Power down input to the OSC to Power down the RC OSC;</p>
+	<p class = "li1">• <strong>Disable</strong>: will ignore the logic at the Power down input of the OSC;</p><br />
+</p>
+
+	<h3>RC CLK predivider by:</h3>
+
+	<p style="margin-left:2em;">a divider internal to the OSC block that divides the selection from Clock selector (below).</p>
+
+	<h3>RC Clock to matrix input enable:</h3>
+
+	<p style="margin-left:2em;">gates the signal OUT0 from the OSC block to the connection matrix. This setting is changed by connecting OUT0 to a matrix input.</p>
+
+<p>
+	<p class = "li1">• <strong>Enable</strong>: will pass the clock signal onto the matrix;</p>
+	<p class = "li1">• <strong>Disable</strong>: will keep OUT0 LOW;</p><br />
+</p>
+
+	<h3>‘OUT0’ second divider by:</h3>
+
+	<p style="margin-left:2em;">Additional division after the predivider.</p>
+
+	<h3>Clock selector:</h3>
+
+	<p style="margin-left:2em;">Muxes between RC OSC and Ext. CLK0.</p>
+
+<p>
+	<p class = "li1">• <strong>RC OSC</strong>: internal oscillator;</p>
+	<p class = "li1">• <strong>EXT. CLK0</strong>: is an input pin to the OSC. It can be configured from any matrix connection;</p><br />
+</p>
+
+	<h4>Parameters (RING OSC)</h4><hr>
+
+	<h3>Ring OSC Power Mode:</h3>
+
+<p>
+	<p class = "li1">• <strong>Auto power on</strong>: will automatically Power down and Power up the OSC. See Auto power on above;</p>
+	<p class = "li1">• <strong>Force power on</strong>: will run the OSC continuously;</p><br />
+</p>
+
+	<h3>Ring OSC frequency:</h3>
+
+	<p style="margin-left:2em;">This cannot be changed, but simply shows the Ring OSC frequency.</p>
+
+	<h3>Ring Matrix power down:</h3>
+
+	<p style="margin-left:2em;">When the Power down signal is HIGH, the OSC will turn off and minimize current consumption</p>
+
+<p>
+	<p class = "li1">• <strong>Enable</strong>: will allow the Power down input to the OSC to Power down the Ring OSC;</p>
+	<p class = "li1">• <strong>Disable</strong>: will ignore the logic at the Power down input of the OSC;</p><br />
+</p>
+
+	<h3>Ring clock predivider by:</h3>
+
+	<p style="margin-left:2em;">a divider internal to the OSC block that divides the Ring clock</p>
+
+	<h3>Ring clock to matrix input enable:</h3>
+
+	<p style="margin-left:2em;">gates the signal OUT1 from the OSC block to the connection matrix. This setting is changed by connecting OUT1 to a matrix input.</p>
+
+<p>
+	<p class = "li1">• <strong>Enable</strong>: will pass the clock signal onto the matrix;</p>
+	<p class = "li1">• <strong>Disable</strong>: will keep OUT1 LOW;</p><br />
+</p>
+
+	<h3>‘OUT1’ second divider by:</h3>
+
+	<p style="margin-left:2em;">Additional division after the predivider.</p>
+</body>

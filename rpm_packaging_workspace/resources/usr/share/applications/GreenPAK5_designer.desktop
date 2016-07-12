@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+NoDisplay=true
+Exec=/usr/bin/GP5 %f
+Name=GreenPAK5 designer
+Comment=GreenPAK5 Designer IDE.
+MimeType=application/gp5-extension;
+Icon=greenpak5
+Categories=Utility;Application;

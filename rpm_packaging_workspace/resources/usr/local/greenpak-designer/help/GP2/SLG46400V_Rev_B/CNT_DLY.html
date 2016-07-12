@@ -1,0 +1,112 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>A <strong>Counter/Delay (CNT/DLY)</strong> macrocell is a multi-function component. Modes are counter, delay or finite state machine (FSM). Each CNT/DLY component has a different combination of the above modes. As a counter, the macrocell will count to the given register value and create a pulse when it has reached the value. A delay will delay a rising and/or falling edge for the duration of the register value. As a finite state machine, the counter data can be manipulated up or down.</p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>Mode:</h3>
+
+	<p style="margin-left:2em;">Choose counter for a positive pulse every X seconds (e.g. a Frequency divider). Choose delay for postponing the rising/falling edge of a signal (e.g. a Deglitching circuit).</p>
+
+	<h3>Counter data:</h3>
+
+	<p style="margin-left:2em;">The length of Counter/Delay period. CNT/DLY bit widths are 14-bit or 8-bit, from 1 to 16383 or 1 to 255 respectively. It is recommended to use larger counter data values for less error.</p>
+
+	<h3>Delay time:</h3>
+
+	<p style="margin-left:2em;">Calculate Delay time with this formula where Counter Data is the previous parameter, CLK Input Frequency is the frequency of the selected Clock Source and Offset is the asynchronous time offset between the input signal and the first clock pulse.</p>
+
+<p>
+	<p class = "li1">• <strong>Counter time</strong>: [(Counter data + 1) / CLK input frequency &#8211; Offset];</p>
+	<p class = "li1">• <strong>Delay time</strong>: [(Counter data + 1) / CLK input frequency &#8211; Offset];</p><br />
+</p>
+
+	<h3>Power control:</h3>
+
+	<p style="margin-left:2em;">Same parameter as power control in the RC OSC macro-cell. For counters, it is recommended to use Forced power-on. It it not necessary in delay mode since the OSC will automatically start up if any delay block sees an input.</p>
+
+	<h3>Reset source:</h3>
+
+	<p style="margin-left:2em;">The COUNTER logic cells can reset if needed. Configure the Reset Source as an Edge Detect to enable this function. The COUNTER will be reset when the configured edge (configured in the Edge Select section) appears on the RESET IN node. The initial output after reset is High for the duration of one clock cycle.</p>
+
+	<h3>Edge select:</h3>
+
+	<p style="margin-left:2em;">In delay mode only, select which edge to delay: falling, rising, or both. If the input noise &lt; delay time, the noise would be filtered out. This is an example of deglitching. </p>
+
+<p>
+	<p class = "li1">• <strong>Both edges</strong>: have delay time X;</p>
+	<p class = "li1">• <strong>Falling edge</strong>: only delayed by time X;</p>
+	<p class = "li1">• <strong>Rising edge</strong>: only delayed by time X;</p><br />
+</p>
+
+	<h4>FSM data</h4><hr>
+
+	<p style="margin-left:2em;">Another mode is the finite state machine (FSM). In FSM mode, the user may control the counter value using macro-cell inputs &#8220;UP, KEEP, LOAD&#8221; . The FSM count value is also input to a digital comparator (DCMP) or an output of the analog-to-digital converter (ADC) or Serial-to=Parallel Converter (S2P). </p>
+
+	<p>UP: macro-cell input &#8216;UP&#8217; is a count direction controller. A digital high sets the FSM to count up in value. A digital low sets the FSM to count down in value and both will wrap around at 0 or maximum. </p>
+
+	<p>KEEP: macro-cell input &#8216;KEEP&#8217; is a latching mechanism. A digital high latches the current value in FSM until &#8216;KEEP&#8217; is released low. A digital low resumes normal operation where a clock input will increment or decrement its counter value.</p>
+
+	<p>LOAD: the Load signal will force the Counter to load the data written in its register configuration when it is in a HIGH state. </p>
+
+<p>
+	<p class = "li1">• <strong>Counter data source</strong>: The FSM data will start at this number. When reaching 0 or max14-bit/8-bit the FSM will not reload this value but instead wraps around.;</p>
+	<p class = "li1">• <strong>ADC PAROUT source</strong>: Loaded every time the FSM reaches 0 or max14bit/8bit;</p>
+	<p class = "li1">• <strong>S2P</strong>: S2P PAR output bits 7 down-to 0 which is loaded every time the FSM reaches 0 or max14bit/8bit;</p><br />
+</p>
+
+	<p><em>For more detailed information, see datasheet section 13.4 Counter Timing</em></p>
+
+	<h3>Clock:</h3>
+
+	<p style="margin-left:2em;">ALL Counter/Delays have the typical CLK/4/8/12 and a variety of EXT CLK and another CNT/DLY source (view table below). Take advantage of the variety to mix and match delay times.</p>
+
+	<p><em><strong>Table 1.</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>Macrocell </th>
+			<th>Bit-Width </th>
+			<th>CNT/DLY         </th>
+			<th>EXT CLK </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY0  </td>
+			<td style="text-align:center;">14        </td>
+			<td style="text-align:center;">14-bit CNT/DLY1 </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY1  </td>
+			<td style="text-align:center;">14        </td>
+			<td style="text-align:center;">14-bit CNT/DLY2 </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY2  </td>
+			<td style="text-align:center;">14        </td>
+			<td style="text-align:center;">8-bit CNT/DLY3  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY3  </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">14-bit CNT/DLY0 </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+	</table></p>
+
+	<p style="margin-left:2em;">COUNTER/DELAYs 0 and 1 have an external clock input combined with DLY IN. The option of the delay with an external clock is not available for these logic cells.</p>
+
+	<h3>Clock source:</h3>
+
+	<p style="margin-left:2em;">Both Counter and Delay configurations can be sourced by an internal or external oscillator. Clock (RC OSC) without divider connections are not shown. (See OSC Info block for more information on the different CLK sources.)</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<h3>EDGE DETECT</h3>
+
+	<p style="margin-left:2em;">CNT3/DLY3 <strong>EDGE DETECT</strong> output will generate short (10-20 ns) pulse after the defined edge (<strong>Edge select</strong> configuration) was detected on its DLY IN input.</p>
+</body>

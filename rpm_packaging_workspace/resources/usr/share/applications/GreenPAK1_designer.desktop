@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+NoDisplay=true
+Exec=/usr/bin/GP1 %f
+Name=GreenPAK1 designer
+Comment=GreenPAK1 Designer IDE.
+MimeType=application/gp1-extension;
+Icon=greenpak1
+Categories=Utility;Application;

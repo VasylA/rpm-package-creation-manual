@@ -1,0 +1,29 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The Pipe Delay logic cell can generate: a single delay stage on OUT0, and/or (3, 5, 7, or 11) stages of delay on OUT1, and/or (2, 4, 8, 12) stages of delay on OUT2 individually. The Pipe Delay cell is built from 12 D Flip-Flop logic cells that provide the three delay options. The DFF cells are tied in series where the output of each delay cell goes to the next DFF cell. There are delay output points for each set of the OUT1 and OUT2 outputs.</p>
+
+	<p>Pipe Delay cell logic cell has three inputs:</p>
+
+<p>
+	<p class = "li1">• <strong>IN &#8211; Pipe Delay input</strong>;</p>
+	<p class = "li1">• <strong>CLOCK &#8211; Pipe Delay clocking signal input</strong>;</p>
+	<p class = "li1">• <strong>nRESET &#8211; active LOW reset signal input</strong>;</p><br />
+</p>
+
+	<h4>NOTE:</h4><hr>
+
+	<p>Connect nRESET to any HIGH level source (VDD, POR, etc.) if it is not being used.</p>
+
+	<p>The Pipe Delay logic cell has three outputs:</p>
+
+<p>
+	<p class = "li1">• <strong>1 PIPE OUT &#8211; output of one pipe</strong>;</p>
+	<p class = "li1">• <strong>OUT0 &#8211; first configurable output (odd pipe numbers)</strong>;</p>
+	<p class = "li1">• <strong>OUT1 &#8211; second configurable output (even pipe numbers)</strong>;</p><br />
+</p>
+
+	<p>As the COUNTER/DELAY logic cells the Pipe Delay logic cell uses a clocking signal to control the delay time. Instead of the Counter Data it creates a pipe to generate the delay. The number of pipes used in the one channel is configured in Pipe Delay properties window of the GreenPAK2 Designer.</p>
+</body>
