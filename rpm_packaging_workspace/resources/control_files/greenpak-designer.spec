@@ -53,7 +53,7 @@ cp -r usr %{buildroot}/
 rm -rf %{buildroot}
 
 %changelog
-* Mon Jun 27 2016 Silego Technology <info@silego.com> 5.08-1
+* Tue Jul 12 2016 Silego Technology <info@silego.com> 5.08-1
 - Initial Packaging
 
 %post 

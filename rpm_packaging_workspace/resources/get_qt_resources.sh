@@ -12,8 +12,8 @@ get_required_qt_resources()
 {
 	local qt_resources_root=$QT_FOLDER
 	local libusb_resources_root="/opt/projects/libusb/libusb/.libs"
-	local graphviz_resources_root="/opt/libs/lib"
-	local required_extra_libs_root="/opt/libs/lib"
+	local graphviz_resources_root="/opt/greenpak/lib"
+	local required_extra_libs_root="/opt/greenpak/lib"
 
 	# ****************************************************************************************
 	#

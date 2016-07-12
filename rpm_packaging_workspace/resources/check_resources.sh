@@ -131,8 +131,9 @@ check_resources()
 {
 	cd "$RESOURCES_PATH"
 
+        echo ""
 	echo "Checking resources:"
-
+        echo ""
 	
 	# 2.0. Make links on binary files
 	rm -rf "$BINFILE_LINKS_PATH"
@@ -299,6 +300,7 @@ check_resources()
 	fi
 	
 	echo "Control files checking finished"
+        echo ""
 }
 
 

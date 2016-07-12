@@ -38,7 +38,7 @@ PACKAGING_PATH="$WORKDIR_PATH/$PACKAGING_FOLDER"
 # Temporary workaround as we currently build .rpm package only for 64-bit CentOS
 #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-ARCH_PRFIX=x86_64
+ARCH_PREFIX=x86_64
 
 
 
@@ -56,7 +56,7 @@ declare -A RPM_BUILD_FOLDERS_PATH=(
 	[$SPECS_DIR]="$PACKAGING_PATH/${SPECS_DIR}"
 )
 
-RPM_OUT_FOLDER="${RPM_BUILD_FOLDERS_PATH[$RPMS_DIR]}/$ARCH_PRFIX"
+RPM_OUT_FOLDER="${RPM_BUILD_FOLDERS_PATH[$RPMS_DIR]}/$ARCH_PREFIX"
 
 
 # Sandbox dir name (like <package_name>-<version>)
@@ -85,10 +85,10 @@ get_and_build_greenpak_projects
 cd $WORKDIR_PATH
 
 mkdir -p "$RESOURCES_DIR/$BIN_FILES_RESOURCES_DIR"
-cp -P -v $WORKDIR_PATH/$OUTPUT_BINS_FOLDER/GP* "$RESOURCES_DIR/$BIN_FILES_RESOURCES_DIR"
+cp -P $WORKDIR_PATH/$OUTPUT_BINS_FOLDER/GP* "$RESOURCES_DIR/$BIN_FILES_RESOURCES_DIR"
 
 mkdir -p "$RESOURCES_DIR/$LIB_FILES_RESOURCES_DIR"
-cp -P -v $WORKDIR_PATH/$OUTPUT_BINS_FOLDER/*.so.* "$RESOURCES_DIR/$LIB_FILES_RESOURCES_DIR"
+cp -P $WORKDIR_PATH/$OUTPUT_BINS_FOLDER/*.so.* "$RESOURCES_DIR/$LIB_FILES_RESOURCES_DIR"
 
 
 # 5. Check packaging resources (see resources/check_resources.sh)
@@ -101,8 +101,6 @@ get_required_qt_resources
 
 # 7. Setup sandbox
 cd $PACKAGING_PATH
-
-echo "$SANDBOX_PATH"
 
 # 7.1 Create sandbox (<package_name>-<version> format)
 mkdir -p "$SANDBOX_PATH"
@@ -134,10 +132,12 @@ cd "${RPM_BUILD_FOLDERS_PATH[$SOURCES_DIR]}"
 PACKED_SANDBOX=$SANDBOX_NAME.tar.gz
 tar -czf "$PACKED_SANDBOX" "$SANDBOX_NAME"
 
-#rm -rf "$SANDBOX_PATH"
-
 
 # 8. Build .rpm package
+echo ""
+echo ">>>>> Building installation package..."
+echo ""
+
 
 # 8.1. Run dpkg-buildpackage tool in $SANDBOX_PATH 
 cd "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
@@ -161,15 +161,23 @@ fi
 
 
 # 8.4 Move .rpm packache to packaging folder
-cp -v "$RPM_OUT_FOLDER/*.rpm" "$PACKAGING_PATH"
+package_file_name="$PACKAGE_NAME-$SOFTWARE_VERSION.$ARCH_PREFIX.rpm"
+cp -v "$RPM_OUT_FOLDER/$package_file_name" "$PACKAGING_PATH"
 
 
 # 8.5 Remove special build folders if required
 cd "$PACKAGING_PATH"
 for folder_path in ${RPM_BUILD_FOLDERS_PATH[@]};
 do
-    rm -rf -v "$folder_path";
+    rm -rf "$folder_path";
 done
 
-# 8.6. Check .rpm package with lintian tool
-#rpmlint *.rpm
+exit 0
+
+# 8.6. Check .rpm package with rpmlint tool
+echo " "
+echo "Check .rpm package with rpmlint tool..."
+echo " "
+
+cd "$PACKAGING_PATH"
+rpmlint $package_file_name

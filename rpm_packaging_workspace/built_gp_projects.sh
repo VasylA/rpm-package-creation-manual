@@ -68,8 +68,9 @@ get_and_build_greenpak_projects()
 	mkdir -p $SOURCE_DIR
 	cd $SOURCE_DIR
 
-	echo ""
+        echo ""
 	echo ">>>>> Checkout projects:"
+        echo ""
 
 	for project in ${PROJECTS[@]};
 	do
@@ -80,6 +81,7 @@ get_and_build_greenpak_projects()
 
 	echo ""	
 	echo ">>>>> Building projects:"
+        echo ""
 
 	for project in ${PROJECTS[@]};
 	do
