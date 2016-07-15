@@ -121,9 +121,7 @@ get_required_qt_resources()
 #	cp -P -v "$libusb_lib_name.$libs_extension" "$RESOURCES_PATH/$local_resources_root/lib/"
 
 
-    cp -P -r "$required_extra_libs_root" "$RESOURCES_PATH/$local_resources_root/"
-
-	echo "Requred extra resources were copied to local resources folder"
+        cp -P -r "$required_extra_libs_root" "$RESOURCES_PATH/$local_resources_root/"
 
 	check_folder_and_go $RESOURCES_PATH
 }
