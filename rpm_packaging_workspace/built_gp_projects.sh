@@ -5,6 +5,7 @@ WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 0. Include additional files
 . ${WORKDIR_PATH}/global_variables
+. ${WORKDIR_PATH}/command_style.sh
 
 
 # 1. Set up variables:
@@ -27,9 +28,9 @@ svn_checkout()
 
 	if [[ -d $project_dir ]]
 	then
-		svn update $project_dir
+		run_and_check_silent svn update $project_dir
 	else
-		svn checkout $project_repo $project_dir
+		run_and_check_silent svn checkout $project_repo $project_dir
 	fi
 
 	cd $CURR_DIR
@@ -45,43 +46,40 @@ build_project()
 
 	local project_src_dir=${PROJECT_SRC_DIR[$project]}
 
-	echo ""
-	echo "Building project $project in folder $project_src_dir"
+	echo -e "Building project ${COLOR_green}$project${COLOR_reset} in folder ${COLOR_cyanic}$project_src_dir${COLOR_reset}"
 
-	cd ${SOURCE_DIR}/${project_src_dir}
+	check_folder_and_go ${SOURCE_DIR}/${project_src_dir}
 
 #	if [[ -f Makefile ]];
 #	then
-#		make distclean
+#		run_and_check_silent make distclean
 #	fi
 
 	${QMAKE_BIN} ${QMAKE_ARG} ${PRO_FILES[$project]}
-#	make -j4
-	make -j${JOBS}
 
-	cd $CURR_DIR
+#	run_and_check_silent make -j4
+	run_and_check_silent make -j${JOBS}
+	echo
+
+	check_folder_and_go $CURR_DIR
 }
 
 # Main function
 get_and_build_greenpak_projects()
 {
 	mkdir -p $SOURCE_DIR
-	cd $SOURCE_DIR
+	check_folder_and_go $SOURCE_DIR
 
-        echo ""
-	echo ">>>>> Checkout projects:"
-        echo ""
+	echo_title "Checkout projects:"
 
 	for project in ${PROJECTS[@]};
 	do
 		svn_checkout ${project}
 	done
 
-	cd $SOURCE_DIR
+	check_folder_and_go $SOURCE_DIR
 
-	echo ""	
-	echo ">>>>> Building projects:"
-        echo ""
+	echo_title "Building projects:"
 
 	for project in ${PROJECTS[@]};
 	do

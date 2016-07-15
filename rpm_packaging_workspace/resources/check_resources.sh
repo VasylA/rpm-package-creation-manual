@@ -5,6 +5,7 @@ RESOURCES_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 0. Include additional files
 . ${RESOURCES_PATH}/../global_variables
+. ${RESOURCES_PATH}/../command_style.sh
 
 
 
@@ -30,7 +31,7 @@ BIN_FILES=(
 BINFILE_PATH="$RESOURCES_PATH/$ARCH_DEPENDENT_FILES_PREFIX/bin"
 
 
-# Executable files links
+# Executable file links
 BIN_FILE_LINKS=(
 	"GPLauncher"
 	"GP1"
@@ -125,15 +126,19 @@ RULES_FILE="40-00-silego-devices-access.rules"
 #
 # *************************************************************************************************
 
+echo_check_success()
+{
+	echo -e "$COLOR_BLUE   ${@}:$COLOR_reset OK"
+}
+
 
 # 2. Check resources
 check_resources()
 {
-	cd "$RESOURCES_PATH"
+	check_folder_and_go "$RESOURCES_PATH"
 
-        echo ""
-	echo "Checking resources:"
-        echo ""
+	echo_title "Checking resources:"
+
 	
 	# 2.0. Make links on binary files
 	rm -rf "$BINFILE_LINKS_PATH"
@@ -146,15 +151,14 @@ check_resources()
 
 
 	# 2.1. Binary files
-	cd "$BINFILE_PATH"
+	check_folder_and_go "$BINFILE_PATH"
 
 	# 2.1.1 Check whether binary files exist
 	for file in ${BIN_FILES[@]};
 	do
 	    if [ ! -f $file ];
 	    then
-		echo "Some binary files are missed"
-		exit 2;
+			echo_error "Some binary files are missed"
 	    fi
 	done
 
@@ -164,19 +168,18 @@ check_resources()
 	    chmod +x -c $file;
 	done
 
-	echo "Binary files.. OK"
+	echo_check_success "Binary files"
 
 
 	# 2.2. Launcher files
-	cd "$LAUNCHERS_PATH"
+	check_folder_and_go "$LAUNCHERS_PATH"
 
 	# 2.2.1 Check whether launcher files exist
 	for file in ${LAUNCHER_FILES[@]};
 	do
 	    if [ ! -f $file ];
 	    then
-		echo "Some .desktop files are missed"
-		exit 2;
+			echo_error "Some .desktop files are missed"
 	    fi
 	done
 
@@ -186,19 +189,18 @@ check_resources()
 	    chmod +x -c $file;
 	done
 
-	echo "Launcher files.. OK"
+	echo_check_success "Launcher files"
 
 
 	# 2.3. Library files
-	cd "$LIBS_RESOURCES_PATH"
+	check_folder_and_go "$LIBS_RESOURCES_PATH"
 
 	# 2.3.1 Check whether library files exist
 	for file in ${LIB_FILES[@]};
 	do
 	    if [ ! -f $file ];
 	    then
-		echo "Some library files are missed"
-		exit 2;
+			echo_error "Some library files are missed"
 	    fi
 	done
 
@@ -208,62 +210,59 @@ check_resources()
 	    chmod +x -c $file;
 	done
 
-	echo "Lib files.. OK"
+	echo_check_success "Lib files"
 
 
 	# 2.4. Device .rules file
-	cd "$RULES_FOLDER_PATH"
+	check_folder_and_go "$RULES_FOLDER_PATH"
 
 	# 2.4.1 Check whether *.rules file exists
 	if [ ! -f "$RULES_FILE" ]; 
 	then
-	    echo "Device .rules file is missed"
-	    exit 2;
+	    echo_error "Device .rules file is missed"
 	fi
 
 	# 2.4.2 Prevent *.rules file to be executable
 	chmod -x -c $RULES_FILE
 
-	echo "Rules file.. OK"
+	echo_check_success "Rules file"
 
 
 	# 2.5. Application document folders
-	cd "$DOCUMENTATION_FOLDER"
+	check_folder_and_go "$DOCUMENTATION_FOLDER"
 
 	# 2.5.1 Check whether application document folders exist
 	if [ ! -d "$HELP_FOLDER" ];
 	then 
-	    echo "Folder $HELP_FOLDER is missed"
-	    exit 2;
+	    echo_error "Folder $HELP_FOLDER is missed"
 	fi
 
 	# 2.5.2 Prevent help files to be executable
 	#chmod -x $HELP_FOLDER
 
-	echo "Help files.. OK"
+	echo_check_success "Help files"
 
 
 	# 2.6. Mime type files
-	cd "$MIME_TYPES_FILE_PATH"
+	check_folder_and_go "$MIME_TYPES_FILE_PATH"
 
 	# 2.6.1 Check whether definition file exists
 	if [ ! -f "$MIME_TYPES_FILE" ]; 
 	then
-	    echo "Mimetypes definition file is missed"
-	    exit 2;
+	    echo_error "Mimetypes definition file is missed"
 	fi
 
 	# 2.6.2 Prevent mimetypes definition file to be executable
 	chmod -x -c $MIME_TYPES_FILE
 
 	# 2.6.3 Check whether mime type icons exist
-	cd "$MIME_TYPE_ICONS_DIR_PATH"
+	check_folder_and_go "$MIME_TYPE_ICONS_DIR_PATH"
+
 	for file in ${MIMETYPE_ICON_FILES[@]};
 	do
 	    if [ ! -f $file ];
 	    then
-		echo "Some mime type icons are missed"
-		exit 2;
+			echo_error "Some mime type icons are missed"
 	    fi
 	done
 
@@ -273,34 +272,31 @@ check_resources()
 	    chmod -x -c $file;
 	done
 
-	echo "Mime type icons files.. OK"
+	echo_check_success "Mime type icons files"
 
-	echo "Resources checking finished"
+	echo_title "Resources checking finished"
 
 
 	# 2.7. Required control files
-	echo "Checking required control files:"
+	echo_title "Checking required control files:"
 
-	cd "$RESOURCES_PATH/$CONTROL_FILES_DIR"
+	check_folder_and_go "$RESOURCES_PATH/$CONTROL_FILES_DIR"
 
 	# 2.7.1 Check whether required control files under debian folder exist
 	for file in ${REQUIRED_CONTROL_FILES[@]};
 	do
 	    if [ ! -f $file ];
 	    then
-		echo "Rpm $file control file is missed in folder $CONTROL_FILES_DIR"
-		exit 2;
+		      echo_error "Rpm $file control file is missed in folder $CONTROL_FILES_DIR"
 	    fi
 	done
 
 	if [ ! -f $RPM_SPEC_FILE ];
 	then
-		echo "Rpm spec file is missed in folder $CONTROL_FILES_DIR"
-		exit 2;
+		echo_error "Rpm spec file is missed in folder $CONTROL_FILES_DIR"
 	fi
 	
-	echo "Control files checking finished"
-        echo ""
+	echo_title "Control files checking finished"
 }
 
 

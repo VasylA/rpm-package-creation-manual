@@ -12,7 +12,7 @@ set -e
 # 1. Set up variables:
 if [ "$1" != "-v" ];
 then
-    echo "Invalid version parameter passed"
+    echo_error "Invalid version parameter passed"
     exit 1;
 fi
 
@@ -23,6 +23,7 @@ WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Include additional files
 . ${WORKDIR_PATH}/global_variables
+. ${WORKDIR_PATH}/command_style.sh
 . ${WORKDIR_PATH}/built_gp_projects.sh
 . ${WORKDIR_PATH}/$RESOURCES_DIR/check_resources.sh
 . ${WORKDIR_PATH}/$RESOURCES_DIR/get_qt_resources.sh
@@ -64,7 +65,6 @@ SANDBOX_NAME="$PACKAGE_NAME-$SOFTWARE_VERSION"
 SANDBOX_PATH="${RPM_BUILD_FOLDERS_PATH[$SOURCES_DIR]}/$SANDBOX_NAME"
 
 
-
 # 2. Create required folders
 mkdir -p "$PACKAGING_PATH"
 
@@ -82,7 +82,7 @@ get_and_build_greenpak_projects
 
 
 # 4. Copy compiled binaries and libs to packaging folder
-cd $WORKDIR_PATH
+check_folder_and_go $WORKDIR_PATH
 
 mkdir -p "$RESOURCES_DIR/$BIN_FILES_RESOURCES_DIR"
 cp -P $WORKDIR_PATH/$OUTPUT_BINS_FOLDER/GP* "$RESOURCES_DIR/$BIN_FILES_RESOURCES_DIR"
@@ -100,21 +100,20 @@ get_required_qt_resources
 
 
 # 7. Setup sandbox
-cd $PACKAGING_PATH
+check_folder_and_go $PACKAGING_PATH
 
 # 7.1 Create sandbox (<package_name>-<version> format)
 mkdir -p "$SANDBOX_PATH"
 
 
 # 7.2. Copy all the resources to sandbox
-cd "$RESOURCES_PATH"
+check_folder_and_go "$RESOURCES_PATH"
 
 for folder in ${RESOURCES_FOLDERS[@]};
 do
     if [ ! -d  $folder ];
     then
-	echo "No $folder folder is missed in $RESOURCES_PATH"
-	exit 2;
+         echo_error "No $folder folder is missed in $RESOURCES_PATH"
     fi
 
     cp -P -r $folder "$SANDBOX_PATH"
@@ -127,36 +126,31 @@ cp "$spec_file_path" "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
 
 
 # 7.4. Compress $SANDBOX_PATH folder
-cd "${RPM_BUILD_FOLDERS_PATH[$SOURCES_DIR]}"
+check_folder_and_go "${RPM_BUILD_FOLDERS_PATH[$SOURCES_DIR]}"
 
 PACKED_SANDBOX=$SANDBOX_NAME.tar.gz
 tar -czf "$PACKED_SANDBOX" "$SANDBOX_NAME"
 
 
 # 8. Build .rpm package
-echo ""
-echo ">>>>> Building installation package..."
-echo ""
+echo_title "Building installation package..."
 
 
 # 8.1. Run dpkg-buildpackage tool in $SANDBOX_PATH 
-cd "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
+check_folder_and_go "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
 rpmbuild -bb -vv "$spec_file_path"
 
 
 # 8.2. Remove $SANDBOX_PATH if required
-#rm -rf "$SANDBOX_PATH"
+rm -rf "$SANDBOX_PATH"
 
 
 # 8.3. Verify if .rpm package created
 if [ "ls *.rpm > /dev/null" ]; 
 then 
-    echo " "
-    echo ".rpm package successfully created"
-    echo " "
+    echo_title "Installation package successfully created"
 else 
-    echo "error while creating .rpm package"
-    exit 3;
+    echo_error "Error while creating installation package"
 fi
 
 
@@ -172,12 +166,9 @@ do
     rm -rf "$folder_path";
 done
 
-exit 0
 
 # 8.6. Check .rpm package with rpmlint tool
-echo " "
-echo "Check .rpm package with rpmlint tool..."
-echo " "
+#echo_title "Checking .deb package with rpmlint tool..."
 
-cd "$PACKAGING_PATH"
-rpmlint $package_file_name
+#cd "$PACKAGING_PATH"
+#rpmlint $package_file_name

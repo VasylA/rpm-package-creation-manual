@@ -5,6 +5,7 @@ RESOURCES_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 0. Include additional files
 . ${RESOURCES_PATH}/../global_variables
+. ${RESOURCES_PATH}/../command_style.sh
 
 
 #==============================Local functions================================
@@ -61,22 +62,23 @@ get_required_qt_resources()
 	local libs_extension="so.*"
 
 
+	echo_title "Setting up requred extra resources in local resources folder"
+
 	if [ ! -d "$qt_resources_root" ];
 	then 
-	    echo "Qt resources were not found in $qt_resources_root"
-	    exit 2;
+	    echo_error "Qt resources were not found in $qt_resources_root"
 	fi
 
 
-	cd $RESOURCES_PATH
+	check_folder_and_go $RESOURCES_PATH
 
 	local local_resources_root="$ARCH_DEPENDENT_FILES_PREFIX"	
 	mkdir -p $local_resources_root
 
-	cd "$RESOURCES_PATH/$local_resources_root"
+	check_folder_and_go "$RESOURCES_PATH/$local_resources_root"
 
 	mkdir -p "bin/"
-	cd "bin/"
+	check_folder_and_go "bin/"
 
 	cp "$webengine_bin" .
 
@@ -84,7 +86,7 @@ get_required_qt_resources()
 	cp "$xcb_paltform_plugin" "platforms/"
 
 
-	cd "$RESOURCES_PATH/$local_resources_root"
+	check_folder_and_go "$RESOURCES_PATH/$local_resources_root"
 
 	mkdir -p "plugins/"
 	cp -r "$plugins_folder" "plugins/"
@@ -96,7 +98,7 @@ get_required_qt_resources()
 
 
 	mkdir -p "lib/"
-	cd "$qt_libs_folder"
+	check_folder_and_go "$qt_libs_folder"
 
 	for file in ${required_qt_libs[@]};
 	do
@@ -104,10 +106,8 @@ get_required_qt_resources()
 	    cp -P $filemask "$RESOURCES_PATH/$local_resources_root/lib/";
 	done
 
-	echo "Requred Qt resources were copied to local resources folder"
-
 	
-	cd "$graphviz_resources_root"
+#	check_folder_and_go "$graphviz_resources_root"
 	
 #	for file in ${graphviz_required_libs[@]};
 #	do
@@ -117,15 +117,15 @@ get_required_qt_resources()
 #	cp -P -r "$graphviz_plugins_folder" "$RESOURCES_PATH/$local_resources_root/lib/"
 
 
-#	cd "$libusb_resources_root"
+#	check_folder_and_go "$libusb_resources_root"
 #	cp -P -v "$libusb_lib_name.$libs_extension" "$RESOURCES_PATH/$local_resources_root/lib/"
 
 
-        cp -P -r "$required_extra_libs_root" "$RESOURCES_PATH/$local_resources_root/"
+    cp -P -r "$required_extra_libs_root" "$RESOURCES_PATH/$local_resources_root/"
 
 	echo "Requred extra resources were copied to local resources folder"
 
-	cd $RESOURCES_PATH
+	check_folder_and_go $RESOURCES_PATH
 }
 #=============================================================================
 
