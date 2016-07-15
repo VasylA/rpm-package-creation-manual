@@ -55,7 +55,7 @@ echo_error()
 
 run_and_check()
 {
-	echo "Running \"${@}\" from \"${PWD}\""
+	echo -e "Running ${COLOR_green}${@}${COLOR_reset} from ${COLOR_cyanic}${PWD}${COLOR_reset}"
 
 	$@ || exit 1
 }

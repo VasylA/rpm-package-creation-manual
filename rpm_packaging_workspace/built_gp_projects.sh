@@ -28,9 +28,9 @@ svn_checkout()
 
 	if [[ -d $project_dir ]]
 	then
-		run_and_check_silent svn update $project_dir
+		run_and_check svn switch $project_repo $project_dir
 	else
-		run_and_check_silent svn checkout $project_repo $project_dir
+		run_and_check svn checkout $project_repo $project_dir
 	fi
 
 	cd $CURR_DIR
