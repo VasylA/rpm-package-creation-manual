@@ -138,7 +138,7 @@ echo_title "Building installation package..."
 
 # 8.1. Run dpkg-buildpackage tool in $SANDBOX_PATH 
 check_folder_and_go "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
-rpmbuild -bb -vv "$spec_file_path"
+run_and_check_silent rpmbuild -bb -vv "$spec_file_path"
 
 
 # 8.2. Remove $SANDBOX_PATH if required
@@ -156,7 +156,7 @@ fi
 
 # 8.4 Move .rpm packache to packaging folder
 package_file_name="$PACKAGE_NAME-$SOFTWARE_VERSION.$ARCH_PREFIX.rpm"
-cp -v "$RPM_OUT_FOLDER/$package_file_name" "$PACKAGING_PATH"
+cp "$RPM_OUT_FOLDER/$package_file_name" "$PACKAGING_PATH"
 
 
 # 8.5 Remove special build folders if required
