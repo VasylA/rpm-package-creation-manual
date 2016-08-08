@@ -1,0 +1,114 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>Counter/Delay (CNT/DLY)</strong> macrocell is a multi-function component.  A CNT/DLY component may include the following functions: counter, delay. As a counter, the macrocell counts to the given register value and creates a pulse when it has reached the value or is reset. As a delay, it postpones rising and/or falling edges for the duration of the register value. </p>
+
+	<h4>CNT/DLY Parameters</h4><hr>
+
+	<h3>Mode:</h3>
+
+<p>
+	<p class = "li1">• <strong>Delay</strong>: postpones the rising and/or falling edge of the input signal;</p>
+	<p class = "li1">• <strong>Counter/FSM</strong>: generates a positive pulse when value is reached, or when reset;</p><br />
+</p>
+
+	<h3>Counter data:</h3>
+
+	<p style="margin-left:2em;">The length of Counter/Delay period. CNT/DLY bit widths are 14-bit or 8-bit, from 1 to 16383 or 1 to 255 respectively. For delay timing applications, it is recommended to use larger counter data values for less error.</p>
+
+	<h3>Delay time / Output Period:</h3>
+
+	<p style="margin-left:2em;">Calculates time period with the following formulas: </p>
+
+<p>
+	<p class = "li1">• <strong>Output Period (After reset)</strong>: [(Counter data + 3) / CLK input frequency];</p>
+	<p class = "li1">• <strong>Output Period (All the next)</strong>: [(Counter data + 1) / CLK input frequency];</p>
+	<p class = "li1">• <strong>Delay time</strong>: [(Counter data + 2 + variable) / CLK input frequency] , where 0 &lt; variable &lt; 1;</p><br />
+</p>
+
+	<p style="margin-left:2em;">CLK Input Frequency is the frequency of the selected Clock Source and Offset is the asynchronous time offset between the input signal and the first clock pulse.</p>
+
+	<p style="margin-left:2em;">If an input pulse is &lt; delay time, the pulse would be filtered out. This feature can be useful for de-glitching.</p>
+
+	<h3>Edge select:</h3>
+
+	<p style="margin-left:2em;">In Delay or edge detect mode, select which edge to delay. In Counter Mode with Reset In, select which edge resets the counter to 0.</p>
+
+<p>
+	<p class = "li1">• <strong>Both</strong>: both rising and falling edges of pulse are delayed;</p>
+	<p class = "li1">• <strong>Falling</strong>: only falling edge delayed;</p>
+	<p class = "li1">• <strong>Rising</strong>: only rising edge delayed;</p>
+	<p class = "li1">• <strong>High Level Reset</strong>: When RESET IN is high, counter is reset to 0;</p><br />
+</p>
+
+	<p><em>For more detailed information, see datasheet section 13.1 CNT/DLY Timing Diagrams</em></p>
+
+	<h4>CONNECTIONS</h4><hr>
+
+	<h3>RESET IN</h3>
+
+	<p style="margin-left:2em;">Reset In resets the Counter to 0 when the RESET IN input has a valid edge. The edge is determined by the Edge select parameter. Valid in Counter Mode only.<br />
+The initial output after reset is High for the duration of one clock cycle.</p>
+
+	<h3>Clock</h3>
+
+	<p style="margin-left:2em;">ALL Counter/Delays have CLK/4/12/24/64, and some have EXT CLK connections. Each CNT/DLY can be sourced by another CNT/DLY (view table below).</p>
+
+	<p><em><strong>Table 1.</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<th>Macrocell </th>
+			<th>Bit-Width </th>
+			<th>CNT/DLY         </th>
+			<th>EXT CLK </th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY0  </td>
+			<td style="text-align:center;">14        </td>
+			<td style="text-align:center;">8-bit CNT/DLY6  </td>
+			<td style="text-align:center;">No      </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY1  </td>
+			<td style="text-align:center;">14        </td>
+			<td style="text-align:center;">14-bit CNT/DLY0 </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY2  </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">14-bit CNT/DLY1 </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY3  </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY2  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY4  </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY3  </td>
+			<td style="text-align:center;">No      </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY5  </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY4  </td>
+			<td style="text-align:center;">No      </td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">CNT/DLY6  </td>
+			<td style="text-align:center;">8         </td>
+			<td style="text-align:center;">8-bit CNT/DLY5  </td>
+			<td style="text-align:center;">Yes     </td>
+		</tr>
+	</table></p>
+
+	<h3>Clock source:</h3>
+
+	<p style="margin-left:2em;">Both Counter and Delay configurations can be sourced by an internal or external oscillator. Clock (RC OSC) without divider connections are not shown. (See OSC Info block for more information on the different CLK sources.)</p>
+</body>
