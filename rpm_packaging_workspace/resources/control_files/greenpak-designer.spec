@@ -1,5 +1,5 @@
 Name: greenpak-designer
-Version: 5.08
+Version: 5.09
 Release: 1
 Summary: GreenPAK1-5 Designer
 Group: Applications/Engineering
@@ -53,7 +53,7 @@ cp -r usr %{buildroot}/
 rm -rf %{buildroot}
 
 %changelog
-* Tue Jul 12 2016 Silego Technology <info@silego.com> 5.08-1
+* Mon Aug 08 2016 Silego Technology <info@silego.com> 5.09-1
 - Initial Packaging
 
 %post 
