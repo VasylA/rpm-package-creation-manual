@@ -1,0 +1,60 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>Crystal OSC</strong> block provides an amplifier circuit which can generate a highly precise and stable digital clock signal (<strong>OUT</strong>) from a quartz crystal or ceramic resonator. When activated, the inverter amplifier is connected to IO13 (output) and IO14 (input). Proper feedback resistance and capacitance must be applied for the oscillation circuit to function.  Please refer to the table below for recommended external component values.</p>
+
+	<p><em><strong>Table 1. External Components Selection Table</strong></em>
+	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
+		<tr>
+			<td><strong>Frequency (MHz)</strong> </td>
+			<td><strong>C1, C2</strong> </td>
+			<td><strong>Feedback Resistor</strong> </td>
+		</tr>
+		<tr>
+			<td>5                 </td>
+			<td>33 pF    </td>
+			<td>5 kOhms    </td>
+		</tr>
+		<tr>
+			<td>10                </td>
+			<td>22 pF    </td>
+			<td>1 kOhms    </td>
+		</tr>
+		<tr>
+			<td>15                </td>
+			<td>15 pF    </td>
+			<td>500 Ohms   </td>
+		</tr>
+		<tr>
+			<td>20                </td>
+			<td>10 pF    </td>
+			<td>270 Ohms   </td>
+		</tr>
+	</table></p>
+
+	<h4>Activation</h4><hr>
+
+	<p>Set the parameter &#8216;Enable crystal oscillator&#8217; to <strong>Enable</strong>. </p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>Enable crystal oscillator:</h3>
+
+<p>
+	<p class = "li1">• <strong>Enable</strong>: block is enabled and connected to IO13 (output) and IO14 (input).</p>
+	<p class = "li1">• <strong>Disable</strong>: block is shut off. IO13 and IO14 no longer used by this block.</p><br />
+</p>
+
+	<h3>Power down enable:</h3>
+
+	<p style="margin-left:2em;">A Power Down pin that controls both the Temp Sensor and Crystal OSC. 1 = Power UP and 0 = Power DOWN. To fully enable a block, the components must first be activated. See &#8216;Activation&#8217;.</p>
+
+<p>
+	<p class = "li1">• <strong>No matrix PD</strong>:PD input disabled. Crystal OSC and Temp Sensor are always on.</p>
+	<p class = "li1">• <strong>PD for crystal OSC</strong>: Control crystal OSC&#8217;s on/off state. Temp Sensor is always on.</p>
+	<p class = "li1">• <strong>PD for TEMP SENSOR</strong>: Control Temp Sensor&#8217;s on/off state. Crystal OSC is always on.</p>
+	<p class = "li1">• <strong>PD for crystal OSC &amp; TEMP SENSOR</strong>: Control both crystal OSC&#8217;s and Temp Sensor&#8217;s on/off state with this signal.</p><br />
+</p>
+</body>

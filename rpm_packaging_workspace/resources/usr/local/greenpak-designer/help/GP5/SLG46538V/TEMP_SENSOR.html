@@ -1,0 +1,38 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The <strong>temperature sensor (TEMP SENSOR)</strong> takes the temperature sensitive node of the bandgap and outputs directly to one of the analog output capable pins.</p>
+
+	<p>If Enabled, the bandgap and output active buffer are forced on. For more information, see VREF0 Help Info.</p>
+
+	<h4>Activation</h4><hr>
+
+	<p>Set the parameter &#8216;Enable temp. sensor&#8217; to <strong>Enable</strong>.</p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>Enable temp. sensor:</h3>
+
+	<p style="margin-left:2em;">Enable or Disable this macro-cell.</p>
+
+	<h3>Output range control:</h3>
+
+	<p style="margin-left:2em;">Select the output range. From 0.62 to 0.99V or 0.75 to 1.2V.</p>
+
+	<h3>Power down enable:</h3>
+
+	<p style="margin-left:2em;">A Power Down pin that controls both the Temp Sensor and Crystal OSC. 1 = Power UP and 0 = Power DOWN. To fully enable a block, the components must first be activated. See &#8216;Activation&#8217;.</p>
+
+<p>
+	<p class = "li1">• <strong>No matrix PD</strong>:PD input disabled. Crystal OSC and Temp Sensor are always on.</p>
+	<p class = "li1">• <strong>PD for crystal OSC</strong>: Control crystal OSC&#8217;s on/off state. Temp Sensor is always on.</p>
+	<p class = "li1">• <strong>PD for TEMP SENSOR</strong>: Control Temp Sensor&#8217;s on/off state. Crystal OSC is always on.</p>
+	<p class = "li1">• <strong>PD for crystal OSC &amp; TEMP SENSOR</strong>: Control both crystal OSC&#8217;s and Temp Sensor&#8217;s on/off state with this signal.</p><br />
+</p>
+
+	<h3>Output:</h3>
+
+	<p style="margin-left:2em;">Output is only available on IO16</p>
+</body>

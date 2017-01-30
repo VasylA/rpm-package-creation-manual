@@ -1,0 +1,64 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<h4>NVM Options</h4><hr>
+
+	<p style="margin-left:2em;">A <strong>Non-Volatile Memory (NVM)</strong> is a type of memory which that persists even after the power is cycled. The NVM holds all configuration bits of the PAK device. During power on, the NVM is powered to transfer bits into the registers after which power to the NVM is cut off. The registers are broken into multiple sections, where they can be selectively locked from I2C read and write. </p>
+
+	<h3>Lock status: </h3>
+
+	<p style="margin-left:2em;">The I2C read protection is prevented during emulation, but will be configured if programmed.<br />
+The memory space is divided into four banks, each of which has 512bits (64bytes). There is the option that allows the user to define rules for reading and writing bits in each of these banks via I2C. <br />
+Read protection: if the system provides any read commands to the addresses in locked banks, the device will respond with ‘FFH’ in data field.<br />
+Write protection: if the system provides any write commands to the addresses in locked banks, the device will acknowledge these commands, but will not do internal writes to the register space.</p>
+
+<p>
+	<p class = "li1">• <strong>Unlocked</strong>: no read or write protection;</p>
+	<p class = "li1">• <strong>Locked for read bits &lt;1535:0&gt;</strong>: Bank 0/1/2 is locked for read;</p>
+	<p class = "li1">• <strong>Locked for write bits &lt;1535:0&gt;</strong>: Bank 0/1/2 is locked for write;</p>
+	<p class = "li1">• <strong>Locked for write all bits</strong>: Bank 0/1/2/3 is locked for write;</p>
+	<p class = "li1">• <strong>Locked for read and write &lt;1535:0&gt;</strong>: Bank 0/1/2 is locked for read and write;</p>
+	<p class = "li1">• <strong>Locked for read bits &lt;1535:0&gt; and write all bits</strong>: Bank 0/1/2 is locked for read and Bank 0/1/2/3 is locked for write;</p><br />
+</p>
+
+	<h3>Pattern ID: </h3>
+
+	<p style="margin-left:2em;">An 16-bit NVM location used to differentiate the NVM code programmed onto the chip. The Pattern ID is the only information accessible from a NVM locked chip.</p>
+
+	<h4>General Project options:</h4><hr>
+
+	<p>General Power, Analog and Quick Charge Options can be configured here.</p>
+
+	<h3>Force bandgap on: </h3>
+
+	<p style="margin-left:2em;">The bandgap sources the voltage reference VREF. The bandgap is auto powered on and off when analog components are enabled or disabled. The &#8216;bandgap output delay time&#8217; can be bypassed if the bandgap is forced on, improving response time of analog comparators.</p>
+
+	<h3>Bandgap output delay time: </h3>
+
+	<p style="margin-left:2em;">There is an additional delay gating the analog comparator output after the bandgap has become valid. This gives time for the charge pump and regulator to settle before obtaining valid comparator data. The VREF and Ring OSC components are NOT gated by this output delay. If Forced bandgap on is Enabled, this delay is bypassed.</p>
+
+<p>
+	<p class = "li1">• <strong>Auto-Delay</strong>: The additional delay will be either 100 or 550 us depending on the &#8216;Power Supply Control&#8217; and VDD.</p>
+	<p class = "li2">- If Power Supply Control is &#8216;Charge Pump always OFF&#8217;, then the delay will be 100us.</p>
+	<p class = "li2">- If Power Supply Control is &#8216;Charge Pump always ON&#8217;, then the delay will be 550us.</p>
+	<p class = "li2">- If Power Supply Control is &#8216;Charge Pump automatically ON/OFF&#8217;, then the delay will be 550us if VDD &lt; 2.7 and 100us if VDD &gt; 2.7.</p>
+	<p class = "li1">• <strong>100us</strong>:</p>
+	<p class = "li1">• <strong>550us</strong>: select if charge pump is needed.</p><br />
+</p>
+
+	<h3>Power Supply Control:</h3>
+
+	<p style="margin-left:2em;">Analog components are powered by a bandgap which operates at 1.8V. This voltage is maintained by a regulator and charge pump which are enabled and disabled in accordance with bandgap usage and VDD levels. The charge pump is not necessary for VDDs greater than 2.7V. The regulator and charge pump can be forced on by Enabling &#8216;Force Bandgap On&#8217; or bypassed by selecting &#8216;VDD directly to analog block&#8217;. Select the correct setting based on the device operating range.</p>
+
+<p>
+	<p class = "li1">• <strong>Regulator and Charge Pump automatic ON/OFF</strong>: For 1.71V &lt; VDD &lt; 5.5V. If VDD is less than 2.7V, the Charge Pump will turn ON. If VDD is greater than 2.7V the Charge Pump will turn OFF.</p>
+	<p class = "li1">• <strong>Regulator auto ON/OFF and Charge Pump always ON</strong>: For 3.0 &lt; VDD &lt; 5.5V.</p>
+	<p class = "li1">• <strong>Regulator auto ON/OFF and Charge Pump always OFF</strong>: For 1.71 &lt; VDD &lt; 3.0.</p><br />
+</p>
+
+	<h3>GPIO quick charge:</h3>
+
+	<p style="margin-left:2em;">During the POR sequence, a 2.6kΩ resistor is connected in parallel to any configured pull-up/down resistors. The 10K, 100K and 1M GPIO Pull-Up/Pull-Down resistors are not enabled until POR so the quick-charge option can help settle the initial voltage faster, especially if there is significant capacitance.</p>
+</body>

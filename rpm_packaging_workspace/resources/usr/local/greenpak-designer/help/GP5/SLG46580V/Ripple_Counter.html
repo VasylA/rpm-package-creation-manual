@@ -1,0 +1,36 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The Ripple Counter is a 3-bit counter that rolls over once it reaches its End Value (EV). It has three inputs from the matrix: UP, nSET, and CK. The block has 3 matrix outputs.</p>
+
+	<h4>Description</h4><hr>
+
+	<h3>Inputs:</h3>
+
+	<p style="margin-left:2em;">
+<p>
+	<p class = "li1">• UP: Determines the direction of the Ripple Counter. When UP is HIGH, the Ripple Counter will count up. When UP is LOW, the Ripple Counter will count down.</p>
+	<p class = "li1">• nSET: For correct Ripple Counter functionality nReset (nRST) input should be HIGH. If nReset (nRST) input is LOW the Ripple Counter is in a reset state and the outputs return to the Set Value (SV).</p>
+	<p class = "li1">• CK: Clocks the Ripple Counter.</p><br />
+</p></p>
+
+	<h3>Outputs:</h3>
+
+	<p style="margin-left:2em;">The Ripple Counter has three outputs to the matrix, which correspond to its count value: Q2, Q1, Q0.</p>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>nSET value (SV):</h3>
+
+	<p style="margin-left:2em;">Choose the Set Value for the Ripple Counter.</p>
+
+	<h3>End value (EV):</h3>
+
+	<p style="margin-left:2em;">Choose the End Value for the Ripple Counter.</p>
+
+	<h3>Functionality mode:</h3>
+
+	<p style="margin-left:2em;">Choose whether the Ripple Counter counts from 0 to the End Value, or from the Set Value (SV) to the End Value.</p>
+</body>

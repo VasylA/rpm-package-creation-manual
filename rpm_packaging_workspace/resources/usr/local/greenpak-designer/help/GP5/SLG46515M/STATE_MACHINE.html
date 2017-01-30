@@ -1,0 +1,57 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The ASM block is an 8-state asynchronous state machine. There are 24 state transition inputs, one nRESET input, and 8 output lines. The ASM block is defined using state transitions and state outputs.</p>
+
+	<h4>Activation</h4><hr>
+
+	<p>To activate the ASM, connect nRESET to a non-Gnd signal.</p>
+
+	<h4>Parameters</h4><hr>
+
+	<p>The ASM block can be defined through either the properties panel on the left, or the ASM editor. The ASM editor is a graphical interface for defining the ASM and editing labels. Double-click on any ASM component to open ASM Editor.<br />
+In the properties tab, you can select a state, edit its name, and configure all of its transition enable switches. Also, you can define the ASM Outputs, edit the label names for each output, and set the Initial/reset state.</p>
+
+	<h3>State Selection:</h3>
+
+	<p style="margin-left:2em;">Select a State to edit the transitions for.</p>
+
+	<h3>State name:</h3>
+
+	<p style="margin-left:2em;">Rename the state selected in &#8216;State selection&#8217;</p>
+
+	<h3>Initial/Reset state:</h3>
+
+	<p style="margin-left:2em;">Select which State is the Initial/Reset state.</p>
+
+	<h3>Transitions:</h3>
+
+	<p style="margin-left:2em;">Select a state to transition to from the current &#8216;state selection&#8217;.</p>
+
+	<h3>RAM:</h3>
+
+	<p style="margin-left:2em;">Set the Initial values of the RAM. <br />
+Use the bulk operations to set all values to 0, 1, invert or default.</p>
+
+	<h3>Pin names:</h3>
+
+	<p style="margin-left:2em;">Rename the outputs.</p>
+
+	<h4>Connections</h4><hr>
+
+	<p>There are three main connections. The transitions, the outputs and the nRESET.</p>
+
+	<h3>Transitions:</h3>
+
+	<p style="margin-left:2em;">The state machine is constructed by defining the one-way connections between two states gated by a transition control input. The state machine will transition to another state any time these two conditions are met: the current state has a transition connection to another state, and that transition enable signal is HIGH. The transition enable signals are controlled by the 24 inputs, and there are 3 transition enable signals per state.</p>
+
+	<h3>Outputs:</h3>
+
+	<p style="margin-left:2em;">The ASM block has 8 outputs to the connection matrix. You can define the output of the 8 outputs based on the current state. This is done in the properties tab by double clicking the desired output for a given state and output line to invert its output.  </p>
+
+	<h3>nReset:</h3>
+
+	<p style="margin-left:2em;">The ASM block will power up to the state defined as the Initial/reset state. It is by default State 0, but can be changed to any state. It also defines which state the ASM will be reset to. When the logic on nRESET is LOW, the ASM will be kept at the Reset state until the logic at nRESET goes HIGH.</p>
+</body>

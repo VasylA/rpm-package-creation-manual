@@ -1,0 +1,47 @@
+﻿<head>
+<link rel="stylesheet" type="text/css" href="qrc:///StyleSheets/Help/general.css">
+<meta charset="UTF-8">
+</head>
+<body>
+	<p>The RTC Counter is a 47-bit binary counter consisting of two components, a 15-bit Counter Divider and a 32-bit Time Counter. The 15-bit Counter Divider can divide the Clock input and generates an output to 1_sec OUT. The 32-bit Time Counter is compared to a DCMP Alarm Value and signals when the values are equal on ALARM OUT. The 32-bit Time Counter&#8217;s clock can be sourced by Clock input or the 15-bit Counter Divider.</p>
+
+	<p>A shadow buffer is located at address 0&#215;75 – 0&#215;7A, a total of 48-bits, and stores the initial value. The RTC counter can either store or load this shadow buffer depending on the transfer direction.</p>
+
+	<center><p><img alt="" src="RTC.PNG" /></p></center>
+
+	<h4>Parameters</h4><hr>
+
+	<h3>Initial counter divider data: </h3>
+
+	<p style="margin-left:2em;">Set the 15-bit Counter Divider. The output of this counter divider is 1_sec OUT. Its initial value is stored in the shadow buffer and will be loaded into the counter when the chip is powered-up. </p>
+
+	<h3>Initial time counter data: </h3>
+
+	<p style="margin-left:2em;">Set the 32-bit Time Counter. The output of this counter divider is compared to Alarm DCMP value. If they are equal, then a signal is generated on ALARM OUT. The initial value is stored in the shadow buffer and will be loaded into the counter when the chip is powered-up. </p>
+
+	<h3>Alarm DCMP value: </h3>
+
+	<p style="margin-left:2em;">Set the 32-bit Digital Comparator Alarm value. When the Time Counter and the DCMP value are equal, an alarm signal is generated on ALARM OUT.</p>
+
+	<h3>Shadow buffer data transfer direction:</h3>
+
+	<p style="margin-left:2em;">This parameter defines the direction of data transfer between the RTC Counter and Shadow Buffer.</p>
+
+<p>
+	<p class = "li1">• <strong>CNT to Buffer</strong>: RTC Counter data is copied to 48-bit shadow buffer.</p>
+	<p class = "li1">• <strong>Buffer to CNT</strong>: Shadow buffer data is copied to the RTC Counter.</p>
+
+	<h3>Shadow buffer trigger source:</h3>
+</p>
+
+	<p style="margin-left:2em;">Select the trigger source for transferring data between the shadow buffer and the RTC counter.</p>
+
+<p>
+	<p class = "li1">• <strong>From matrix output</strong>: Rising edge of SYNC triggers data transfer between shadow buffer and RTC counter.</p>
+	<p class = "li1">• <strong>From I2C address</strong>: I2C read or write activity from address 0&#215;75 &#8211; 0&#215;7A triggers data transfer between shadow buffer and RTC counter.</p><br />
+</p>
+
+	<h3>Counter clock source:</h3>
+
+	<p style="margin-left:2em;">The clock source for the 32-bit Time Counter is a multiplexer between the 15-bit Counter Divider and the Clock input.</p>
+</body>
