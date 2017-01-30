@@ -3,11 +3,11 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<p>PAK5 has two independent Oscillator macro-cells <strong>OSC0 and OSC1</strong>. The internal frequencies are 25 kHz, 2 MHz and 25MHz. The external clock inputs are PIN 20, 18 and 17.  The Oscillator block generates clock signals used by the CNT/DLY blocks and some are connected to the connection matrix. The higher the frequency, the higher the current consumption.</p>
+	<p>PAK5 has two independent Oscillator macro-cells <strong>OSC0 and OSC1</strong>. The internal frequencies are 25 kHz, 2 MHz and 25MHz. The external clock inputs are IO17, IO15 and IO14.  The Oscillator block generates clock signals used by the CNT/DLY blocks and some are connected to the connection matrix. The higher the frequency, the higher the current consumption.</p>
 
 	<h4>Description</h4><hr>
 
-	<p>OSC0 is configurable to 25 kHz, 2 MHz or external PIN 18, PIN 20. OSC1 is configurable to 25 MHz or external PIN 17. Both oscillator blocks have forced power on and auto-power on capabilities. Force Power Down only applies to internal oscillators.</p>
+	<p>OSC0 is configurable to 25 kHz, 2 MHz or external IO15, IO17. OSC1 is configurable to 25 MHz or external IO14. Both oscillator blocks have forced power on and auto-power on capabilities. Force Power Down only applies to internal oscillators.</p>
 
 	<p>The orange clock lines (Clk/4, CLK/64 etc) are clock connections which do not enter the connection matrix. These lines are activated through a CNT/DLY block&#8217;s clock source parameter. <br />
 The only clock line not shown is Clk/1.</p>
@@ -51,8 +51,8 @@ For &#8220;control pin mode: Force on&#8221;, PWR DOWN input can be HIGH or LOW.
 	<h3>EXT CLK Pin selector:</h3>
 
 <p>
-	<p class = "li1">• <strong>OSC0</strong>: PIN 20, 18</p>
-	<p class = "li1">• <strong>OSC1</strong>: PIN 17</p><br />
+	<p class = "li1">• <strong>OSC0</strong>: IO17, IO15</p>
+	<p class = "li1">• <strong>OSC1</strong>: IO14</p><br />
 </p>
 
 	<h3>Fast start-up (OSC0 only):</h3>

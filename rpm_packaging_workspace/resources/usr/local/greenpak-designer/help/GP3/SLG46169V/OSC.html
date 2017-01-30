@@ -17,7 +17,7 @@
 
 	<h4>Auto power on</h4><hr>
 
-	<p>The internal oscillator can dynamically cycle power based on the needs of the delay blocks. The below figure shows how the OSC turns on whenever a signal on the DLY block arrives and runs until the delay is completed (marked by the rise in DLY_OUT). The clock then powers down until it needs to clock the delay for the falling edge and powers back up. Once the delay for the falling edge is completed, the clock powers down once again. It is important to note that CNT blocks do not cause the clock to power up, in which case the OSC Power mode should be set to Force power on.</p>
+	<p>The internal oscillator can dynamically cycle power based on the needs of the delay blocks. The below figure shows how the OSC turns on whenever a signal on the DLY block arrives and runs until the delay is completed (marked by the rise in DLY_OUT). The clock then powers down until it needs to clock the delay for the falling edge and powers back up. Once the delay for the falling edge is completed, the clock powers down once again.</p>
 
 	<center><p style="text-align:center;"><img alt="" src="rco000.png" /><br />
 <em><strong>Figure 1.</strong></em></p></center>
@@ -33,11 +33,11 @@
 
 	<h3>Clock selector:</h3>
 
-	<p style="margin-left:2em;">Muxes between RC OSC and Ext CLK from PIN20.</p>
+	<p style="margin-left:2em;">Muxes between RC OSC and Ext CLK from PIN14.</p>
 
 <p>
 	<p class = "li1">• <strong>RC OSC</strong>: internal oscillator;</p>
-	<p class = "li1">• <strong>Ext Clk(from PIN20)</strong>: is an input pin to the OSC. It can be configured from PIN20 set as Digital Input;</p><br />
+	<p class = "li1">• <strong>Ext Clk(from PIN14)</strong>: is an input pin to the OSC. It can be configured from PIN14 set as Digital Input;</p><br />
 </p>
 
 	<h3>RC OSC frequency:</h3>

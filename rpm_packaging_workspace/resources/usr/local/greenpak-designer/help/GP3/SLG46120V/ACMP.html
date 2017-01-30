@@ -54,9 +54,9 @@
 		</tr>
 	</table></p>
 
-	<h3>Hysteresis</h3>
+	<h3>Hysteresis:</h3>
 
-	<p>Each ACMP has four selectable hysteresis options 0mV, 25mV, 50mV and 200mV.</p>
+	<p style="margin-left:2em;">Each ACMP has four selectable hysteresis options 0mV, 25mV, 50mV and 200mV.</p>
 
 <p>
 	<p class = "li1">• <strong>0mV</strong>: will disable the input signal hysteresis;</p>
@@ -65,19 +65,23 @@
 	<p class = "li1">• <strong>200mV</strong>: is a +0mV and -200mV hysteresis. For Vref=1V, the trigger points will be 1V and 0.8V. Only applies if Vref is internal;</p><br />
 </p>
 
-	<h3>Low bandwidth</h3>
+	<h3>Low bandwidth:</h3>
 
-	<p>Enable/Disable a low pass filter, cutoff frequency &lt;&lt; 5kHz, to IN+. Not to be confused with the Speed parameter and is much lower than Normal speed.</p>
+	<p style="margin-left:2em;">Enable/Disable a low pass filter, cutoff frequency &lt;&lt; 5kHz, to IN+. Not to be confused with the Speed parameter and is much lower than Normal speed.</p>
 
-	<h3>IN+ source</h3>
+	<h3>IN+ gain:</h3>
 
-	<p>Positive Analog input source to ACMP.</p>
+	<p style="margin-left:2em;">A selectable resistor divider stage of 1X, 0,5X, 0.33X and 0.25X. This stage is applied after the buffer and before hysteresis. The Resistor Divider power on is controlled by ACMP PWR UP signal.</p>
 
-	<h3>IN- source</h3>
+	<h3>IN+ source:</h3>
 
-	<p>Negative Analog input source to ACMP. Internal Vref thresholds are optimized near 1000mV.</p>
+	<p style="margin-left:2em;">Positive Analog input source to ACMP.</p>
 
-	<h3>Note</h3>
+	<h3>IN- source:</h3>
 
-	<p>Any ACMP powered on enables the BandGap internal circuit as well. An analog voltage will appear on Vref (even when the Force BandGap option is set as Disabled).</p>
+	<p style="margin-left:2em;">Negative Analog input source to ACMP. Internal Vref thresholds are optimized near 1000mV.</p>
+
+	<h4>Note:</h4><hr>
+
+	<p style="margin-left:2em;">Any ACMP powered on enables the BandGap internal circuit as well. An analog voltage will appear on Vref (even when the Force BandGap option is set as Disabled).</p>
 </body>

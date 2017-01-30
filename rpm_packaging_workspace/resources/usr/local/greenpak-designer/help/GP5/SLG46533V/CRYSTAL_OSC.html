@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<p>The <strong>Crystal OSC</strong> block provides an amplifier circuit which can generate a highly precise and stable digital clock signal (<strong>OUT</strong>) from a quartz crystal or ceramic resonator. When activated, the inverter amplifier is connected to PIN16 (output) and PIN17 (input). Proper feedback resistance and capacitance must be applied for the oscillation circuit to function.  Please refer to the table below for recommended external component values.</p>
+	<p>The <strong>Crystal OSC</strong> block provides an amplifier circuit which can generate a highly precise and stable digital clock signal (<strong>OUT</strong>) from a quartz crystal or ceramic resonator. When activated, the inverter amplifier is connected to IO13 (output) and IO14 (input). Proper feedback resistance and capacitance must be applied for the oscillation circuit to function.  Please refer to the table below for recommended external component values.</p>
 
 	<p><em><strong>Table 1. External Components Selection Table</strong></em>
 	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
@@ -43,13 +43,13 @@
 	<h3>Enable crystal oscillator:</h3>
 
 <p>
-	<p class = "li1">• <strong>Enable</strong>: block is enabled and connected to PIN16 (output) and PIN17 (input).</p>
-	<p class = "li1">• <strong>Disable</strong>: block is shut off. PIN16 and PIN17 no longer used by this block.</p><br />
+	<p class = "li1">• <strong>Enable</strong>: block is enabled and connected to IO13 (output) and IO14 (input).</p>
+	<p class = "li1">• <strong>Disable</strong>: block is shut off. IO13 and IO14 no longer used by this block.</p><br />
 </p>
 
 	<h3>Power down enable:</h3>
 
-	<p style="margin-left:2em;">A Power Down PIN that controls both the Temp Sensor and Crystal OSC. 1 = Power UP and 0 = Power DOWN. To fully enable a block, the components must first be activated. See &#8216;Activation&#8217;.</p>
+	<p style="margin-left:2em;">A Power Down pin that controls both the Temp Sensor and Crystal OSC. 1 = Power UP and 0 = Power DOWN. To fully enable a block, the components must first be activated. See &#8216;Activation&#8217;.</p>
 
 <p>
 	<p class = "li1">• <strong>No matrix PD</strong>:PD input disabled. Crystal OSC and Temp Sensor are always on.</p>

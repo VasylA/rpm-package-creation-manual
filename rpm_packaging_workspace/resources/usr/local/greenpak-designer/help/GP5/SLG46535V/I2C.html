@@ -23,11 +23,17 @@
 
 	<h3>IO Latching:</h3>
 
-	<p style="margin-left:2em;">&#8216;Power Control&#8217; becomes I2C-write invalid. </p>
+	<p style="margin-left:2em;">This register reg&lt;1663&gt; is one the configurations that cannot be written with I2C write. Therefore, emulation will not be able to write this configuration. Program the device to set this register to a 1.<br />
+If IO Latching is Enabled, the GPIO outputs will be held logic 1 or logic 0 during I2C activity, however configuration bits will still update at the end of each acknowledge.<br />
+For an I2C Read, the GPIOs are Latched from Start bit to the end of the Slave Address.<br />
+For an I2C Write, the GPIOs are Latched from Start bit to the Stop Bit.</p>
+
+	<p style="margin-left:2em;">If IO Latched is Disabled, the GPIO outputs will not be held at a logic high or low. Configuration bits will update at the end of each Acknowledge.</p>
 
 	<h3>Control code, bin:</h3>
 
-	<p style="margin-left:2em;">In the control byte, bits [6:3] are used to address the PAK device. By changing those four bits, the possible binary values are 0000b..1111b. This way the I2C Master can control up to 16 I2C slaves individually.</p>
+	<p style="margin-left:2em;">This is one of the configurations that cannot be written with I2C. Therefore these registers cannot be emulated, only programmed.<br />
+In the control byte, bits [6:3] are used to address the PAK device. By changing those four bits, the possible binary values are 0000b..1111b. This way the I2C Master can control up to 16 I2C slaves individually.</p>
 
 	<h3>I2C Virtual Inputs Initial Value:</h3>
 

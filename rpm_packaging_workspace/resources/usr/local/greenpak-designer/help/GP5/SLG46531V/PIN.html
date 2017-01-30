@@ -3,152 +3,124 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<p>Pins are general purpose I/Os (GPIOs) with the exception of PIN2, which only serves as a digital input. Certain pins have unique properties. Pin 2 can be configured as a chip reset. Pins 8 and 9 are designated for the SCL and SDA lines of the I2C interface. If I2C interface is not needed, pins 8 and 9 can be used as general purpose IO, but only as an open-drain NMOS output. Pins 8 and 9 have no PMOS structure, and thus cannot be configured as a push-pull output. However this allows pins 8 and 9 to be pulled above VDD without being limited by internal diode clamping. Analog I/O are limited to certain pins, and depend on the macro-cell used (see macro-cell help info for connectivity information). </p>
+	<p>Pins are general purpose I/Os (GPIOs) with the exception of PIN2, which only serves as a digital input. Certain pins have unique properties. Pins 8 and 9 are designated for the SCL and SDA lines of the I2C interface. If I2C interface is not needed, pins 8 and 9 can be used as general purpose I/O, but only as an open-drain NMOS output. Pins 8 and 9 have no PMOS structure, and thus cannot be configured as a push-pull output. However this allows pins 8 and 9 to be pulled above VDD without being limited by internal diode clamping. Analog I/O are limited to certain pins, and depend on the macro-cell used (see macro-cell help info for connectivity information). </p>
 
 	<h4>Activation</h4><hr>
 
 	<p>Set &#8216;I/O selection&#8217; to a GPIO mode that is not &#8216;Pin not Used&#8217;.<br />
 Alternatively, drag a wire to or from the PIN and a signal.<br />
-For Digital Input/Output signals, connect the OE pin to a I/O control signal.</p>
+For Digital Input/Output signals, connect the OE pin to an I/O control signal.</p>
 
 	<h4>Parameters</h4><hr>
 
 	<h3>I/O Selection and OE mode:</h3>
 
-	<p style="margin-left:2em;">Select the type of IO with the &#8216;I/O Selection&#8217; parameter. Then, select the specific &#8216;Input mode OE = 0&#8217;  or &#8216;output mode OE = 1&#8217;.</p>
+	<p style="margin-left:2em;">Select the GPIO mode using &#8216;I/O Selection&#8217;. The table show the GPIO Pad level (High, Low, Hi-Z or Analog). <br />
+Push Pull outputs cannot be configured with a PU or PD Resistor. <br />
+4X drivers are stronger than 2X drivers which are stronger than 1X drivers; sourcing more current. However, the time it takes to drive an output is inversely longer. <br />
+Digital Inputs, if left floating, will leak current; tie them to a rail. <br />
+Use Schmitt triggers to debounce high frequency input signals.</p>
 
-	<p><em><strong>Table 1. GPIO levels based on I/O Selection and Input mode OE = 0</strong></em>
+	<p><em><strong>Table 1. GPIO Pad</strong></em>
 	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
 		<tr>
 			<th>I/O selection          </th>
-			<th>Input mode OE = 0  </th>
-			<th>GPIO Level</th>
-			<th>Comments </th>
+			<th>OE </th>
+			<th>IO mode            </th>
+			<th>GPIO Pad  </th>
+			<th>Resistor </th>
 		</tr>
 		<tr>
 			<td style="text-align:center;">Pin not Used           </td>
+			<td style="text-align:center;">0  </td>
 			<td style="text-align:center;">w/o Schmitt trigger</td>
 			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;">1M Pull Down by default</td>
+			<td style="text-align:center;">1M Pull Down</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;" rowspan="3">Digital Input        </td>
+			<td style="text-align:center;" rowspan="3">0</td>
 			<td style="text-align:center;">w/o Schmitt trigger</td>
 			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">w/ Schmitt trigger </td>
 			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;">Schmitt trigger adds hysteresis</td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">Low Voltage DI     </td>
 			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;">VIH and VIL levels are lowered</td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
-			<td style="text-align:center;">Analog Input/Output    </td>
-			<td style="text-align:center;">Analog Input/Output</td>
+			<td style="text-align:center;" rowspan="5">Digital Output       </td>
+			<td style="text-align:center;">0  </td>
+			<td style="text-align:center;">3-state Output     </td>
 			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
-			<td style="text-align:center;" rowspan="1">Digital output       </td>
-			<td style="text-align:center;">&#8212;                 </td>
-			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;" rowspan="3">Digital Input/Output </td>
-			<td style="text-align:center;">w/o Schmitt trigger</td>
-			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;">w/ Schmitt trigger </td>
-			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;">Schmitt trigger adds hysteresis</td>
-		</tr>
-		<tr>
-			<td style="text-align:center;"> Low Voltage DI    </td>
-			<td style="text-align:center;">Z         </td>
-			<td style="text-align:center;">VIH and VIL levels are lowered</td>
-		</tr>
-	</table></p>
-
-	<p><em><strong>Table 2. GPIO levels based on I/O Selection and Output mode OE = 1</strong></em>
-	<table border="1" style="border-color: #808080; border-width: 1px;" cellspacing="0" cellpadding="5">
-		<tr>
-			<th>I/O selection          </th>
-			<th>Output mode OE = 1 </th>
-			<th>GPIO Level</th>
-			<th>Comments </th>
-		</tr>
-		<tr>
-			<td style="text-align:center;">Pin not Used           </td>
-			<td style="text-align:center;">None               </td>
-			<td style="text-align:center;">&#8212;        </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;" rowspan="3">Digital Input        </td>
-			<td style="text-align:center;">None               </td>
-			<td style="text-align:center;">&#8212;        </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;">None               </td>
-			<td style="text-align:center;">&#8212;        </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;">None               </td>
-			<td style="text-align:center;">&#8212;        </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;">Analog Input/Output    </td>
-			<td style="text-align:center;">Analog Input/Output</td>
-			<td style="text-align:center;">A         </td>
-			<td style="text-align:center;"></td>
-		</tr>
-		<tr>
-			<td style="text-align:center;" rowspan="4">Digital output       </td>
+			<td style="text-align:center;" rowspan="4">1</td>
 			<td style="text-align:center;">Push Pull          </td>
 			<td style="text-align:center;">H/L       </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">Floating</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">Open Drain NMOS    </td>
 			<td style="text-align:center;">Z/L       </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">Open Drain PMOS    </td>
 			<td style="text-align:center;">H/Z       </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">3-state Output     </td>
 			<td style="text-align:center;">H/L       </td>
-			<td style="text-align:center;">The 3 states are H, L and Z</td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
-			<td style="text-align:center;" rowspan="3">Digital Input/Output </td>
+			<td style="text-align:center;">Analog Input/Output    </td>
+			<td style="text-align:center;">&#8212; </td>
+			<td style="text-align:center;">Analog Input/Output</td>
+			<td style="text-align:center;">&#8212;        </td>
+			<td style="text-align:center;">&#8212;</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;" rowspan="6">Digital Input/Output </td>
+			<td style="text-align:center;" rowspan="3">0</td>
+			<td style="text-align:center;">w/o Schmitt trigger</td>
+			<td style="text-align:center;">Z         </td>
+			<td style="text-align:center;">&#8212;</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">w/ Schmitt trigger </td>
+			<td style="text-align:center;">Z         </td>
+			<td style="text-align:center;">&#8212;</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;"> Low Voltage DI    </td>
+			<td style="text-align:center;">Z         </td>
+			<td style="text-align:center;">&#8212;</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;" rowspan="3">1</td>
 			<td style="text-align:center;">Push Pull          </td>
 			<td style="text-align:center;">H/L       </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">Floating</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">Open Drain NMOS    </td>
 			<td style="text-align:center;">Z/L       </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 		<tr>
 			<td style="text-align:center;">Open Drain PMOS    </td>
 			<td style="text-align:center;">H/Z       </td>
-			<td style="text-align:center;"></td>
+			<td style="text-align:center;">&#8212;</td>
 		</tr>
 	</table></p>
 
@@ -156,12 +128,11 @@ For Digital Input/Output signals, connect the OE pin to a I/O control signal.</p
 H = High<br />
 L = Low<br />
 Z = Hi-Z<br />
-A = Analog<br />
-&#8212; = not available</p>
+A = Analog Voltage</p>
 
 	<h3>Resistor:</h3>
 
-	<p style="margin-left:2em;">Available for both Digital Input and Digital I/O modes. All ports are in Hi-Z state until chip is powered up.</p>
+	<p style="margin-left:2em;">Add a Pull Up or Pull Down resistor on the GPIO. Pin not Used has a 1M Pull Down. Push Pull outputs cannot be configured with a Pull Up/Pull Down Resistor. All ports are in Hi-Z state until chip is powered up. Use the quick charge mode, see Power Ctrl Settings, to quickly charge pins to an initial state when power to device is applied.</p>
 
 <p>
 	<p class = "li1">• <strong>Pull down resistor</strong>: Default low</p>
@@ -171,7 +142,7 @@ A = Analog<br />
 
 	<h3>Resistor value:</h3>
 
-	<p style="margin-left:2em;">If &#8216;Resistor&#8217; parameter is &#8216;Pull up&#8217; or &#8216;Pull down&#8217;, resistor values (in ohms) of <strong>10K, 100K or 1M</strong> can be chosen. Default is 1M.</p>
+	<p style="margin-left:2em;">&#8216;Resistor&#8217; must be &#8216;Pull up&#8217; or &#8216;Pull down&#8217;. Resistor value (in ohms) of <strong>10K, 100K or 1M</strong> can be chosen. Default is 1M.</p>
 
 	<h4>Information</h4><hr>
 

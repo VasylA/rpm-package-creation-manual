@@ -17,7 +17,7 @@
 
 	<h3>Auto power on</h3>
 
-	<p>The internal oscillator can dynamically cycle power based on the needs of the delay blocks. The below figure shows how the OSC turns on whenever a signal on the DLY block arrives and runs until the delay is completed (marked by the rise in DLY_OUT). The clock then powers down until it needs to clock the delay for the falling edge and powers back up. Once the delay for the falling edge is completed, the clock powers down once again. It is important to note that CNT blocks do not cause the clock to power up, in which case the OSC Power mode should be set to Force power on.</p>
+	<p>The internal oscillator can dynamically cycle power based on the needs of the delay blocks. The below figure shows how the OSC turns on whenever a signal on the DLY block arrives and runs until the delay is completed (marked by the rise in DLY_OUT). The clock then powers down until it needs to clock the delay for the falling edge and powers back up. Once the delay for the falling edge is completed, the clock powers down once again.</p>
 
 	<center><p style="text-align:center;"><img alt="" src="rco000.png" /><br />
 <em><strong>Figure 1.</strong></em></p></center>
