@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 #Steps:
 
@@ -18,7 +18,7 @@ fi
 
 SOFTWARE_VERSION="$2"
 
-# Current path - working directory 
+# Current path - working directory
 WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Include additional files
@@ -113,7 +113,7 @@ for folder in ${RESOURCES_FOLDERS[@]};
 do
     if [ ! -d  $folder ];
     then
-         echo_error "No $folder folder is missed in $RESOURCES_PATH"
+		echo_error "No $folder folder in $RESOURCES_PATH"
     fi
 
     cp -P -r $folder "$SANDBOX_PATH"
@@ -146,10 +146,10 @@ rm -rf "$SANDBOX_PATH"
 
 
 # 8.3. Verify if .rpm package created
-if [ "ls *.rpm > /dev/null" ]; 
-then 
+if [ "ls *.rpm > /dev/null" ];
+then
     echo_title "Installation package successfully created"
-else 
+else
     echo_error "Error while creating installation package"
 fi
 
@@ -168,7 +168,7 @@ done
 
 
 # 8.6. Check .rpm package with rpmlint tool
-#echo_title "Checking .deb package with rpmlint tool..."
+#echo_title "Checking .rpm package with rpmlint tool..."
 
 #cd "$PACKAGING_PATH"
 #rpmlint $package_file_name

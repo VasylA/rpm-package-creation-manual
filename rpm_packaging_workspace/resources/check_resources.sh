@@ -51,6 +51,7 @@ LIB_FILES=(
 	"libprinteditor.so.1.0.0"
 	"libComparisonTool.so.1.0.0"
 	"libSettingsModule.so.1.0.0"
+	"libToolsAPI.so.1.0.0"
 )
 
 # Libs resources path

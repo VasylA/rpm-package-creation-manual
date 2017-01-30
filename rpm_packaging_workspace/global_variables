@@ -60,13 +60,13 @@ PROJECTS=(
 SVN_HOST=172.21.1.21
 declare -A REPOS=(
 	[$SLG_LIB]="http://${SVN_HOST}/svn/slg-libs/trunk"
-	[$UPDATER]="http://${SVN_HOST}/svn/greenpak-updater/tags/5.08-B003_ER"
-	[$LAUNCHER]="http://${SVN_HOST}/svn/greenpak-launcher/tags/5.08-B003_ER"
-	[$GP1]="http://${SVN_HOST}/svn/greenpak1-designer/tags/5.08-B003_ER"
-	[$GP2]="http://${SVN_HOST}/svn/greenpak2-designer/tags/5.08-B003_ER"
-	[$GP3]="http://${SVN_HOST}/svn/greenpak3-designer/tags/5.08-B003_ER"
-	[$GP4]="http://${SVN_HOST}/svn/greenpak4-designer/tags/5.08-B003_ER"
-	[$GP5]="http://${SVN_HOST}/svn/greenpak5-designer/tags/5.08-B003_ER"
+	[$UPDATER]="http://${SVN_HOST}/svn/greenpak-updater/trunk"
+	[$LAUNCHER]="http://${SVN_HOST}/svn/greenpak-launcher/trunk"
+	[$GP1]="http://${SVN_HOST}/svn/greenpak1-designer/trunk"
+	[$GP2]="http://${SVN_HOST}/svn/greenpak2-designer/trunk"
+	[$GP3]="http://${SVN_HOST}/svn/greenpak3-designer/trunk"
+	[$GP4]="http://${SVN_HOST}/svn/greenpak4-designer/trunk"
+	[$GP5]="http://${SVN_HOST}/svn/greenpak5-designer/trunk"
 )
 
 

@@ -1,6 +1,6 @@
 Name: greenpak-designer
-Version: 5.09
-Release: 1
+Version: 6.03
+Release: 3
 Summary: GreenPAK1-5 Designer
 Group: Applications/Engineering
 License: EULA
@@ -53,6 +53,9 @@ cp -r usr %{buildroot}/
 rm -rf %{buildroot}
 
 %changelog
+* Mon Jan 30 2017 Silego Technology <info@silego.com> 6.03-3
+- Last version
+
 * Mon Aug 08 2016 Silego Technology <info@silego.com> 5.09-1
 - Initial Packaging
 

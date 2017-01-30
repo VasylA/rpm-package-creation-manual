@@ -2,7 +2,7 @@
 # The following rule set up the Silego devices, Silego Technology,
 # be accessed by everyone.
 # Without this, they are owned by root and causes
-# permissions problems and a libusb error.
+# permissions problems and libusb error.
 
 
 SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="0001" MODE:="0777" 
@@ -11,3 +11,6 @@ SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="0003" MODE:="0777"
 SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="0005" MODE:="0777"
 SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="0006" MODE:="0777"
 SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="8006" MODE:="0777"
+SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="800A" MODE:="0777"
+SUBSYSTEMS=="usb" ATTRS{idVendor}=="0f0f" ATTRS{idProduct}=="000a" MODE:="0777"
+SUBSYSTEMS=="usb" ATTRS{idVendor}=="04d8" ATTRS{idProduct}=="00dd" MODE:="0777"
