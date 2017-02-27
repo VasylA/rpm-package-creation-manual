@@ -20,9 +20,9 @@ RESOURCES_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 get_required_qt_resources()
 {
 	local qt_resources_root=$QT_FOLDER
-	local libusb_resources_root="/opt/projects/libusb/libusb/.libs"
-	local graphviz_resources_root="/opt/greenpak/lib"
-	local required_extra_libs_root="/opt/greenpak/lib"
+#	local libusb_resources_root="/opt/projects/libusb/libusb/.libs"
+#	local graphviz_resources_root="/opt/greenpak/lib"
+#	local required_extra_libs_root="/opt/greenpak/lib"
 
 	# ****************************************************************************************
 	#
@@ -92,9 +92,9 @@ get_required_qt_resources()
 		"libgvpr"
 		"libpathplan"
 		"libxdot"
-	)	
-	local graphviz_plugins_folder="graphviz"	
-	
+	)
+	local graphviz_plugins_folder="graphviz"
+
 	local libusb_lib_name="libusb"
 	#
 	# ****************************************************************************************
@@ -182,10 +182,10 @@ get_required_qt_resources()
 		cp -P $filemask "$RESOURCES_PATH/$local_resources_root/lib/";
 	done
 
-	
+
 	# 7. GrapgViz libraries
 #	check_folder_and_go "$graphviz_resources_root"
-	
+
 #	for file in ${graphviz_required_libs[@]};
 #	do
 #	    filemask=$file.$libs_extension;
@@ -198,7 +198,7 @@ get_required_qt_resources()
 #	cp -P -v "$libusb_lib_name.$libs_extension" "$RESOURCES_PATH/$local_resources_root/lib/"
 
 
-    cp -P -r "$required_extra_libs_root" "$RESOURCES_PATH/$local_resources_root/"
+#	cp -P -r "$required_extra_libs_root" "$RESOURCES_PATH/$local_resources_root/"
 
 	check_folder_and_go $RESOURCES_PATH
 }
