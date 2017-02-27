@@ -5,18 +5,7 @@ set -e
 #Steps:
 
 # 0. Setup environment:
-#    sudo apt-get update
-#    sudo apt-get install subversion
 
-
-# 1. Set up variables:
-if [ "$1" != "-v" ];
-then
-    echo_error "Invalid version parameter passed"
-    exit 1;
-fi
-
-SOFTWARE_VERSION="$2"
 
 # Current path - working directory
 WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -27,9 +16,86 @@ WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . ${WORKDIR_PATH}/built_gp_projects.sh
 . ${WORKDIR_PATH}/$RESOURCES_DIR/check_resources.sh
 . ${WORKDIR_PATH}/$RESOURCES_DIR/get_qt_resources.sh
+. ${WORKDIR_PATH}/$RESOURCES_DIR/get_help_materials.sh
+
+
+print_usage()
+{
+	echo "Usage: make [options]"
+	echo "  -e, --external              Set target installation package version type as external."
+	echo "  -h, --help                  Print this message and exit."
+	echo "  -i, --internal              Set target installation package version type as internal."
+	echo "  -v, --version VERSION       Set target installation package version to VERSION."
+	echo "                              VERSION format XX.YY-ZZ, where XX - major version,"
+	echo "                                                             YY - minor version,"
+	echo "                                                             ZZ - build number."
+}
+
+
+# 1. Set up variables:
+
+for (( i=1; i<=$#; i++));
+do
+	case "${!i}" in
+	# Set external release mode
+	-e | --external)
+		if [[ "$VERSION_TYPE" == "$INTERNAL_VERSION" ]];
+		then
+			echo "Invalid parameters passed"
+			exit 1;
+		fi
+                VERSION_TYPE="$EXTERNAL_VERSION"
+		echo "External release mode set"
+		;;
+	# Set internal release mode
+	-i | --internal)
+		if [[ "$VERSION_TYPE" == "$EXTERNAL_VERSION" ]];
+		then
+			echo "Invalid parameters passed"
+			exit 1;
+                fi
+		VERSION_TYPE="$INTERNAL_VERSION"
+		echo "Internal release mode set"
+		;;
+	# Print usage help info
+	-h | --help)
+		print_usage
+		exit 0;
+		;;
+	# Set package version
+	-v | --version)
+		num=$((i+1))
+		SOFTWARE_VERSION="${!num}"
+		;;
+	# Unknown parameter
+	*)
+		;;
+	esac
+done
+
+# Version format XX.YY-ZZ, where XX - major version,
+#				 YY - minor version,
+#				 ZZ - build number.
+if ! [[ $SOFTWARE_VERSION =~ ^[0-9]+\.[0-9]+\-[0-9]+$ ]];
+then
+	echo "Invalid version parameter passed"
+	exit 1;
+fi
+
+if [[ "$VERSION_TYPE" == "" ]];
+then
+	VERSION_TYPE="$EXTERNAL_VERSION"
+fi
 
 
 RESOURCES_PATH="$WORKDIR_PATH/$RESOURCES_DIR"
+
+if [[ "$VERSION_TYPE" == "$EXTERNAL_VERSION" ]];
+then
+	PACKAGING_FOLDER="external_packages"
+else
+	PACKAGING_FOLDER="internal_packages"
+fi
 
 PACKAGING_PATH="$WORKDIR_PATH/$PACKAGING_FOLDER"
 
@@ -72,8 +138,8 @@ echo "%_topdir $PACKAGING_PATH" > ~/.rpmmacros
 
 for folder_path in ${RPM_BUILD_FOLDERS_PATH[@]};
 do
-    rm -rf "$folder_path";
-    mkdir -p "$folder_path";
+	rm -rf "$folder_path";
+	mkdir -p "$folder_path";
 done
 
 
@@ -91,83 +157,91 @@ mkdir -p "$RESOURCES_DIR/$LIB_FILES_RESOURCES_DIR"
 cp -P $WORKDIR_PATH/$OUTPUT_BINS_FOLDER/*.so.* "$RESOURCES_DIR/$LIB_FILES_RESOURCES_DIR"
 
 
-# 5. Check packaging resources (see resources/check_resources.sh)
+# 5. Generate help materials (see resources/get_help_materials.sh)
+get_help_materials
+
+
+# 6. Check packaging resources (see resources/check_resources.sh)
 check_resources
 
 
-# 6. Get required Qt resources (see resources/get_qt_resources.sh)
+# 7. Get required Qt resources (see resources/get_qt_resources.sh)
 get_required_qt_resources
 
 
-# 7. Setup sandbox
+# 8. Setup sandbox
 check_folder_and_go $PACKAGING_PATH
 
-# 7.1 Create sandbox (<package_name>-<version> format)
+# 8.1 Create sandbox (<package_name>-<version> format)
 mkdir -p "$SANDBOX_PATH"
 
 
-# 7.2. Copy all the resources to sandbox
+# 8.2. Copy all the resources to sandbox
 check_folder_and_go "$RESOURCES_PATH"
 
 for folder in ${RESOURCES_FOLDERS[@]};
 do
-    if [ ! -d  $folder ];
-    then
+	if [ ! -d  $folder ];
+	then
 		echo_error "No $folder folder in $RESOURCES_PATH"
-    fi
+	fi
 
-    cp -P -r $folder "$SANDBOX_PATH"
+	cp -P -r $folder "$SANDBOX_PATH"
 done
 
 
-# 7.3. Copy rpm .spec file to SPECS folder
+# 8.3. Copy rpm .spec file to SPECS folder
 spec_file_path="$RESOURCES_PATH/$CONTROL_FILES_DIR/$RPM_SPEC_FILE"
 cp "$spec_file_path" "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
 
 
-# 7.4. Compress $SANDBOX_PATH folder
+# 8.4. Compress $SANDBOX_PATH folder
 check_folder_and_go "${RPM_BUILD_FOLDERS_PATH[$SOURCES_DIR]}"
 
 PACKED_SANDBOX=$SANDBOX_NAME.tar.gz
 tar -czf "$PACKED_SANDBOX" "$SANDBOX_NAME"
 
 
-# 8. Build .rpm package
+# 9. Build .rpm package
 echo_title "Building installation package..."
 
 
-# 8.1. Run dpkg-buildpackage tool in $SANDBOX_PATH 
+# 9.1. Run rpmbuild tool in $SANDBOX_PATH 
 check_folder_and_go "${RPM_BUILD_FOLDERS_PATH[$SPECS_DIR]}"
 run_and_check_silent rpmbuild -bb -vv "$spec_file_path"
 
 
-# 8.2. Remove $SANDBOX_PATH if required
+# 9.2. Remove all unnecessary files from packaging directory
+check_folder_and_go "$PACKAGING_PATH"
+
+
+# 9.3. Remove $SANDBOX_PATH if required
 rm -rf "$SANDBOX_PATH"
 
 
-# 8.3. Verify if .rpm package created
+# 9.4. Verify if .rpm package created
 if [ "ls *.rpm > /dev/null" ];
 then
-    echo_title "Installation package successfully created"
+	echo_title "Installation package successfully created"
 else
-    echo_error "Error while creating installation package"
+	echo_error "Error while creating installation package"
 fi
 
 
-# 8.4 Move .rpm packache to packaging folder
+# 9.5 Move .rpm packache to packaging folder
 package_file_name="$PACKAGE_NAME-$SOFTWARE_VERSION.$ARCH_PREFIX.rpm"
 cp "$RPM_OUT_FOLDER/$package_file_name" "$PACKAGING_PATH"
 
 
-# 8.5 Remove special build folders if required
+# 9.6 Remove special build folders if required
 cd "$PACKAGING_PATH"
 for folder_path in ${RPM_BUILD_FOLDERS_PATH[@]};
 do
-    rm -rf "$folder_path";
+	rm -rf "$folder_path";
 done
 
 
-# 8.6. Check .rpm package with rpmlint tool
+# 9.7. Check .rpm package with rpmlint tool
 #echo_title "Checking .rpm package with rpmlint tool..."
 
 #cd "$PACKAGING_PATH"
