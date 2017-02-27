@@ -1,0 +1,13 @@
+Index: appversion.h
+===================================================================
+--- appversion.h	(revision 5426)
++++ appversion.h	(working copy)
+@@ -20,7 +20,7 @@
+     };
+     Q_DECLARE_FLAGS(ReleaseOptions, ReleaseOption)
+ 
+-    inline static ReleaseOptions releaseOptions() { return ROUC_ExternalRelease; }
++    inline static ReleaseOptions releaseOptions() { return ROUC_InternalRelease; }
+ 
+     inline static bool isInternal()         { return releaseOptions() & RO_Internal; }
+     inline static bool isUnderDevelopment() { return releaseOptions() & RO_UnderDevelopment; }
