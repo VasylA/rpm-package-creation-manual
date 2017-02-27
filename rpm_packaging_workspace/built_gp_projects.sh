@@ -1,6 +1,13 @@
 #!/bin/bash
 
-# Current path - working directory 
+# This script performs checkout or switch (the same as update in such case) for projects from
+# $PROJECTS list (see 'global_variables' for more info). After that all the projects are built.
+# By default clean is not performed for projects and you can make it by uncomment 'make distclean'
+# call in build_project() function. Also by default we set optimal number of jobs run simultaneously
+# during make. You can also change this in build_project() function.
+
+
+# Current path - working directory
 WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 0. Include additional files
@@ -10,6 +17,7 @@ WORKDIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 1. Set up variables:
 SOURCE_DIR="$WORKDIR_PATH/$PROJECTS_FOLDER"
+PATCH_FILE="$WORKDIR_PATH/internal_version.patch"
 
 CORE_NUM=`grep -c -e '^processor' /proc/cpuinfo`
 JOBS=$(( ${CORE_NUM} * 2 ))
@@ -28,12 +36,22 @@ svn_checkout()
 
 	if [[ -d $project_dir ]]
 	then
+		run_and_check svn revert -R $project_dir
 		run_and_check svn switch $project_repo $project_dir
 	else
 		run_and_check svn checkout $project_repo $project_dir
 	fi
 
-	cd $CURR_DIR
+	# WORKAROUND: Assumed that all projects on the repositories have 'external release' version type set.
+	# Here we change version type to 'internal release' using predefined patch file.
+#	if [ "$VERSION_TYPE" == "$INTERNAL_VERSION" ] && [ "$project" != "$SLG_LIB" ] && [ "$project" != "$UPDATER" ]
+#	then
+#		local project_src_dir=${PROJECT_SRC_DIR[$project]}
+#		check_folder_and_go ${SOURCE_DIR}/${project_src_dir}
+#		run_and_check svn patch "$PATCH_FILE" .
+#	fi
+
+	check_folder_and_go $CURR_DIR
 }
 
 
@@ -57,7 +75,6 @@ build_project()
 
 	${QMAKE_BIN} ${QMAKE_ARG} ${PRO_FILES[$project]}
 
-#	run_and_check_silent make -j4
 	run_and_check_silent make -j${JOBS}
 	echo
 

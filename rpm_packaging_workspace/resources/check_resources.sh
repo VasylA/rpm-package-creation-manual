@@ -1,6 +1,15 @@
 #!/bin/bash
 
-# Current path - resources directory 
+# This script preforms checking of resources required during packaging process.
+# All required files are listed here (see "REQUIRED PACKAGE RESOURCES LIST" section below).
+# Update this if new files required for target software are added (binaries, libraries, images and so on).
+#
+# NOTE: Pay attention on section "2.7. Required control files under debian folder" and '$DEBIAN_REQUIRED_FILES' 
+# array. There you can find all control files during packaging process.
+# Also at the end of the script changelog file is updated for current distribution.
+
+
+# Current path - resources directory
 RESOURCES_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 0. Include additional files
@@ -68,7 +77,7 @@ LAUNCHER_FILES=(
 	"GreenPAK_designer_launcher.desktop"
 )
 
-# Launcher files dir path 
+# Launcher files dir path
 LAUNCHERS_PATH="$RESOURCES_PATH/usr/share/applications"
 
 
@@ -108,13 +117,13 @@ MYMETYPE_ICON_FILES=(
 MIME_TYPE_ICONS_DIR_PATH="$RESOURCES_PATH/usr/share/icons/hicolor/scalable/mimetypes"
 
 
-# Mime types folder path 
+# Mime types folder path
 MIME_TYPES_FILE_PATH="$RESOURCES_PATH/usr/share/mime/packages"
 # Mime types package file
 MIME_TYPES_FILE="greenpak.xml"
 
 
-# Rules folder path 
+# Rules folder path
 RULES_FOLDER_PATH="$RESOURCES_PATH/lib/udev/rules.d"
 # Rules file
 RULES_FILE="40-00-silego-devices-access.rules"
@@ -140,14 +149,14 @@ check_resources()
 
 	echo_title "Checking resources:"
 
-	
+
 	# 2.0. Make links on binary files
 	rm -rf "$BINFILE_LINKS_PATH"
 	mkdir -p "$BINFILE_LINKS_PATH"
 
 	for file in ${BIN_FILE_LINKS[@]};
 	do
-	    ln -s "/$ARCH_DEPENDENT_FILES_PREFIX/bin/$file" "$BINFILE_LINKS_PATH/$file"
+		ln -s "/$ARCH_DEPENDENT_FILES_PREFIX/bin/$file" "$BINFILE_LINKS_PATH/$file"
 	done
 
 
@@ -157,16 +166,16 @@ check_resources()
 	# 2.1.1 Check whether binary files exist
 	for file in ${BIN_FILES[@]};
 	do
-	    if [ ! -f $file ];
-	    then
+		if [ ! -f $file ];
+		then
 			echo_error "Some binary files are missed"
-	    fi
+		fi
 	done
 
 	# 2.1.2 Make binary files executable
 	for file in ${BIN_FILES[@]};
 	do
-	    chmod +x -c $file;
+		chmod +x -c $file;
 	done
 
 	echo_check_success "Binary files"
@@ -178,16 +187,16 @@ check_resources()
 	# 2.2.1 Check whether launcher files exist
 	for file in ${LAUNCHER_FILES[@]};
 	do
-	    if [ ! -f $file ];
-	    then
+		if [ ! -f $file ];
+		then
 			echo_error "Some .desktop files are missed"
-	    fi
+		fi
 	done
 
 	# 2.2.2 Make launcher files executable
 	for file in ${LAUNCHER_FILES[@]};
 	do
-	    chmod +x -c $file;
+		chmod +x -c $file;
 	done
 
 	echo_check_success "Launcher files"
@@ -199,16 +208,16 @@ check_resources()
 	# 2.3.1 Check whether library files exist
 	for file in ${LIB_FILES[@]};
 	do
-	    if [ ! -f $file ];
-	    then
+		if [ ! -f $file ];
+		then
 			echo_error "Some library files are missed"
-	    fi
+		fi
 	done
 
 	# 2.3.2 Make library files executable
 	for file in ${LIB_FILES[@]};
 	do
-	    chmod +x -c $file;
+		chmod +x -c $file;
 	done
 
 	echo_check_success "Lib files"
@@ -218,9 +227,9 @@ check_resources()
 	check_folder_and_go "$RULES_FOLDER_PATH"
 
 	# 2.4.1 Check whether *.rules file exists
-	if [ ! -f "$RULES_FILE" ]; 
+	if [ ! -f "$RULES_FILE" ];
 	then
-	    echo_error "Device .rules file is missed"
+		echo_error "Device .rules file is missed"
 	fi
 
 	# 2.4.2 Prevent *.rules file to be executable
@@ -234,8 +243,8 @@ check_resources()
 
 	# 2.5.1 Check whether application document folders exist
 	if [ ! -d "$HELP_FOLDER" ];
-	then 
-	    echo_error "Folder $HELP_FOLDER is missed"
+	then
+		echo_error "Folder $HELP_FOLDER is missed"
 	fi
 
 	# 2.5.2 Prevent help files to be executable
@@ -248,9 +257,9 @@ check_resources()
 	check_folder_and_go "$MIME_TYPES_FILE_PATH"
 
 	# 2.6.1 Check whether definition file exists
-	if [ ! -f "$MIME_TYPES_FILE" ]; 
+	if [ ! -f "$MIME_TYPES_FILE" ];
 	then
-	    echo_error "Mimetypes definition file is missed"
+		echo_error "Mimetypes definition file is missed"
 	fi
 
 	# 2.6.2 Prevent mimetypes definition file to be executable
@@ -261,16 +270,16 @@ check_resources()
 
 	for file in ${MIMETYPE_ICON_FILES[@]};
 	do
-	    if [ ! -f $file ];
-	    then
+		if [ ! -f $file ];
+		then
 			echo_error "Some mime type icons are missed"
-	    fi
+		fi
 	done
 
 	# 2.6.4 Prevent mime type icon files to be executable
 	for file in ${MIMETYPE_ICON_FILES[@]};
 	do
-	    chmod -x -c $file;
+		chmod -x -c $file;
 	done
 
 	echo_check_success "Mime type icons files"

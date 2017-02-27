@@ -1,6 +1,14 @@
 #!/bin/bash
 
-# Current path - resources directory 
+# This script preforms checking of Qt resources required by application.
+# All required files are listed here (see "REQUIRED QT RESOURCES" section below).
+# Update this if new Qt dependencies added (e. g. libraries, plugins, etc).
+#
+# NOTE: Pay attention on '$required_qml_folders' array. "QtQuick" folder is skipped here
+# because only some folders from this dir are required. See required_qtquick_folders array.
+
+
+# Current path - resources directory
 RESOURCES_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # 0. Include additional files
@@ -25,6 +33,7 @@ get_required_qt_resources()
 	local webengine_bin="$qt_resources_root/libexec/QtWebEngineProcess"
 	local xcb_paltform_plugin="$qt_resources_root/plugins/platforms/libqxcb.so"
 
+	local sql_plugins_folder="$qt_resources_root/plugins/sqldrivers/"
 	local xcb_plugins_folder="$qt_resources_root/plugins/xcbglintegrations/"
 	local imageformats_plugins_folder="$qt_resources_root/plugins/imageformats/"
 
@@ -45,9 +54,12 @@ get_required_qt_resources()
 		"libQt5Quick"
 		"libQt5QuickControls2"
 		"libQt5QuickTemplates2"
+		"libQt5Sql"
 		"libQt5WebChannel"
+		"libQt5WebEngine"
 		"libQt5WebEngineCore"
 		"libQt5WebEngineWidgets"
+		"libQt5WebView"
 		"libQt5Widgets"
 		"libQt5XcbQpa"
 		"libQt5Xml"
@@ -122,6 +134,7 @@ get_required_qt_resources()
 
 	mkdir -p "plugins/"
 	cp -r "$xcb_plugins_folder" "plugins/"
+	cp -r "$sql_plugins_folder" "plugins/"
 
 	mkdir -p "plugins/imageformats/"
 	for file in ${required_imageformat_plugins[@]};

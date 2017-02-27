@@ -30,7 +30,7 @@ echo_title()
 {
 	echo
 	echo -e "${COLOR_MAGENTA}${@}${COLOR_reset}"
-	echo 
+	echo
 }
 
 echo_subtitle()
@@ -78,14 +78,28 @@ run_and_check_silent()
 	echo ": Success"
 }
 
+run_silent()
+{
+        if ! err=$($@ 2>&1 >/dev/null) ;
+        then
+                echo
+                echo
+                echo -e "${COLOR_RED}Error output:${COLOR_reset}"
+                echo -e "${COLOR_red}$err${COLOR_reset}"
+                echo
+                echo -e "${COLOR_green}${@}${COLOR_reset} in ${COLOR_cyanic}${PWD}${COLOR_reset}: Failure"
+                exit 1
+        fi
+}
+
 check_folder_and_go()
 {
 	local dir_name=${@};
 
 	if [ ! -d "$dir_name" ];
-	then 
+	then
 	    echo_error "Folder $dir_name is missed"
 	fi
-	
+
 	cd $dir_name
 }
