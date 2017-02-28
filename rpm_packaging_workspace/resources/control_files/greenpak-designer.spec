@@ -1,6 +1,6 @@
 Name: greenpak-designer
-Version: 6.03
-Release: 3
+Version: 6.04
+Release: 1
 Summary: GreenPAK1-5 Designer
 Group: Applications/Engineering
 License: EULA
@@ -12,10 +12,10 @@ Vendor: Silego Technology
 
 
 %description
-GreenPAK Designer™ is a full featured integrated development environment 
+GreenPAK Designer™ is a full featured integrated development environment
 (IDE) that allows you to specify exactly how you want the device to be
 configured. This provides you a direct access to all GreenPAK device
-features and complete control over the routing and configuration options. 
+features and complete control over the routing and configuration options.
 
 GreenPAK Designer has an integrated programming tool that allows you
 to program configured design into your GreenPAK chip. Also with this
@@ -28,7 +28,7 @@ as chip.
 
 %build
 
-%install 
+%install
 mkdir -p %{buildroot}/lib
 mkdir -p %{buildroot}/usr
 cp -r lib %{buildroot}/
@@ -48,18 +48,18 @@ cp -r usr %{buildroot}/
 %{_datadir}/man/man1/GP*
 %{_datadir}/mime/packages/greenpak.xml
 /lib/udev/rules.d/40-00-silego-devices-access.rules
- 
+
 %clean
 rm -rf %{buildroot}
 
 %changelog
-* Mon Jan 30 2017 Silego Technology <info@silego.com> 6.03-3
+* Mon Feb 27 2017 Silego Technology <info@silego.com> 6.04-1
 - Last version
 
 * Mon Aug 08 2016 Silego Technology <info@silego.com> 5.09-1
 - Initial Packaging
 
-%post 
+%post
 /sbin/ldconfig
 update-mime-database /usr/share/mime
 gtk-update-icon-cache /usr/share/icons/hicolor/ -f
